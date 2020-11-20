@@ -1,0 +1,94 @@
+
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title> Decoder Demo </title>
+        <style>
+            div.footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                margin: 0 auto;
+                background: #0072BB;
+                color:#FFFFFF;
+            }
+
+            .button {
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+            .button1 {background-color: #4CAF50;} /* Green */
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <h1>Olas kameratest23</h1>
+            
+            <button id = "cameraTakePicture" onclick="cameraTake">TAKE PICTURE</button>
+            <img id = "myImage"></img>
+        </div>
+        <script src="cordova.js"></script>
+        <script src="js/index.js"></script>
+
+      
+        
+        
+        <script>
+
+             
+
+            document.getElementById("cameraTakePicture").addEventListener 
+                ("click", cameraTake); 
+         
+
+            function cameraTake() {
+
+                var options =   {   quality: 50,
+                      destinationType: Camera.DestinationType.DATA_URL,
+                      sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Album
+                      encodingType: 0     // 0=JPG 1=PNG
+                  };
+
+
+                    document.getElementById("cameraTakePicture").innerText=
+                                            "New Button Text using innerHTML";
+
+                                         
+
+                navigator.camera.getPicture(onSuccess, onFail, options);
+
+                    document.getElementById("cameraTakePicture").innerText=
+                                            "Second text";
+
+                function onSuccess(imageURL) {
+                    var image = document.getElementById('myImage');
+                    image.src = imageURL;
+
+                    document.getElementById("cameraTakePicture").innerText=
+                                                            "Success";
+                }
+
+                function onFail(message) {
+                    document.getElementById("cameraTakePicture").innerText=
+                                                            message;
+                    alert('Failed because: ' + message);
+                }
+
+            }
+
+        </script>
+    </body>
+</html>
+
+<!--   <script src="../platforms/android/platform_www/cordova.js"></script>
+        <script src="js/index.js"></script>
+-->

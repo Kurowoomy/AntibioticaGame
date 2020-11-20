@@ -1,0 +1,21 @@
+body {
+    background-color: rgb(207, 249, 255);
+}
+
+.levelButtonStyle {
+    background-color: lightgreen;
+    margin: 10px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+
+    border: none;
+    outline: none;
+    
+}
+.levelButtonStyle:active {
+    border: 2px solid seagreen;
+}
+.levelButtonStyle:hover {
+    background-color: palegreen;
+}

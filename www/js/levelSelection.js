@@ -1,4 +1,4 @@
-// Globala variabler för levelSelection-sidan
+// Variabler för levelSelection-sidan
 var levelButtons = [];
 var doses = 30;
 

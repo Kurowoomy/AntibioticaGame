@@ -1,20 +1,76 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Start page</title>
+<style>
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+/* .button1 {background-color: #4CAF50;} 
+.button2 {background-color: #008CBA;} */
+
+.btn-group button {
+  background-color: #4CAF50; /* Green background */
+  border: 1px solid green; /* Green border */
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  width: 25%; /* Set a width if needed */
+  display: block; /* Make the buttons appear below each other */
+}
+
+.btn-group button:not(:last-child) {
+  border-bottom: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #3e25cc;
+}
+
+
+</style>
 </head>
-
 <body>
-    Welcome to this empty start page.
+    
+<h1>Avalible functions</h1>
 
-    <div>
-        Buttons leading to other pages:
-        <!-- Kopiera raden nedan och ersätt levelSelection.html med egen html-fil -->
-        <button onclick="document.location='levelSelection.html'">Level selection</button>
+<div class="btn-group">
+  <button onclick="Camera()">Camera</button>
+  <button onclick="Decode()">Decode</button>
+  <button onclick="LevelSelect()">Level select</button>
+</div>
 
 
-    </div>
+<!-- <button class="button button1">Green</button>
+<button class="button button2">Blue</button> -->
+<!-- <button onclick="Decode()">Decode</button>
+<button onclick="Camera()">Camera</button> -->
+
+<script>
+
+    function Camera(){
+        location.href = "Camera.html";
+    }
+
+    function Decode(){
+       // alert("Decode clicked");
+        location.href = "Decode.html";
+    }
+
+    function LevelSelect(){
+      location.href = "levelSelection.html";
+    }
+</script>
+
+
 </body>
-
-</html>
+</html> 

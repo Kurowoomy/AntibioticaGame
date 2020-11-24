@@ -38,7 +38,15 @@
             drawBoard();
         }
 
+        //var matrix = [][];
+        var matrix = Array.from(Array(8), () => new Array(8));
+        var currentPos = [];
+
         function drawBoard() {
+            currentPos[0] = 4;
+            currentPos[1] = 4;
+
+
             var bWidth = 8;
             var bHeight = 8;
             var c = document.getElementById("canvas");
@@ -53,6 +61,25 @@
             var buttonY = 80; 
             var buttonW = 60; 
             var buttonH = 30; 
+
+
+
+            ctx.fillStyle = "#111111"; 
+            ctx.beginPath();
+            ctx.arc((30 + 20 * 4), (30 + 20 * 4), 5, 0, 2 * Math.PI);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            for (var pos = 0; pos < 8; pos++) {
+                freePositions[pos] = 0;
+            }
+
+            for (var i = 0; i < 8; i++) {
+                for (var j = 0; j < 8; j++){
+                    matrix[i][j] = 0; // Not lit
+                }
+            }
 
             for (var i = 0; i < bWidth + 1; i++)
             {
@@ -70,34 +97,170 @@
 
           
                 // Render button 
-            ctx.fillStyle = 'red'; 
-            ctx.fillRect(buttonX, buttonY, buttonW, buttonH); 
+            //ctx.fillStyle = 'red'; 
+            //ctx.fillRect(buttonX, buttonY, buttonW, buttonH); 
 
                 // Add event listener to canvas element 
             canvas.addEventListener('click', function(event) { 
             // Control that click event occurred within position of button 
             // NOTE: This assumes canvas is positioned at top left corner  
 
-            let rect = canvas.getBoundingClientRect()
-            
+                let rect = canvas.getBoundingClientRect()
+                
                 let x = event.clientX - rect.left;
                 let y = event.clientY - rect.top;
-            
+                
 
-            alert("X =  " + x + " " +  "Y = " + y); 
-            if ( 
-                x > buttonX &&  
-                x < buttonX + buttonW && 
-                y > buttonY &&  
-                y < buttonY + buttonH 
-            ) { 
-                // Executes if button was clicked! 
-                alert('Button was clicked!'); 
-            } 
+                //alert("X =  " + x + " " +  "Y = " + y); 
+
+                for (var i = 0; i < 8; i++) {
+                    for (var j = 0 ; j < 8; j++) {
+
+                        if (x > (20 + 20 * i) &&
+                            x < (40 + 20 * i) &&
+                            y > (20 + 20 * j) &&
+                            y < (40 + 20 * j))
+                            {
+                                matrix[i][j] = !matrix[i][j];
+                                if (matrix[i][j] == 1) {
+                                    ctx.fillStyle = "#c82124"; //red
+                                    ctx.beginPath();
+                                    ctx.arc((30 + 20 * i), (30 + 20 * j), 5, 0, 2 * Math.PI);
+                                    ctx.closePath();
+                                    ctx.fill();
+                                    ctx.stroke();
+                                }
+                                else {
+                                    ctx.fillStyle = "#3370d4"; //blue
+                                    ctx.beginPath();
+                                    ctx.arc((30 + 20 * i), (30 + 20 * j), 5, 0, 2 * Math.PI);
+                                    ctx.closePath();
+                                    ctx.fill();
+                                    ctx.stroke();
+                                }
+                            }
+
+                    }
+                }
+
+                moveVirus();
             }); 
 
             
         }
+        var freePositions = [];
+
+        function moveVirus() {
+
+            var numTaken = 0;
+
+
+            ctx.fillStyle = "#3370d4"; 
+            ctx.beginPath();
+            ctx.arc((30 + 20 * currentPos[0]), (30 + 20 * currentPos[1]), 5, 0, 2 * Math.PI);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            for (var pos = 0; pos < 8; pos++){
+                freePositions[pos] = 0;
+            }
+
+            if (matrix[currentPos[0] - 1][currentPos[1] - 1] == 0) {
+                freePositions[numTaken] = 1;
+                numTaken++;
+            }
+
+            if (matrix[currentPos[0] - 1][currentPos[1]] == 0) {
+                freePositions[numTaken] = 2;
+                numTaken++;
+            }
+
+            if (matrix[currentPos[0] - 1][currentPos[1] + 1] == 0) {
+                freePositions[numTaken] = 3;
+                numTaken++;
+            }
+
+            if (matrix[currentPos[0]][currentPos[1] + 1] == 0) {
+                freePositions[numTaken] = 4;
+                numTaken++;
+            }
+
+            if (matrix[currentPos[0] + 1][currentPos[1] + 1] == 0) {
+                freePositions[numTaken] = 5;
+                numTaken++;
+            }
+
+            if (matrix[currentPos[0] + 1][currentPos[1]] == 0) {
+                freePositions[numTaken] = 6;
+                numTaken++;
+            }
+
+            if (matrix[currentPos[0] + 1][currentPos[1] - 1] == 0) {
+                freePositions[numTaken] = 7;
+                numTaken++;
+            }
+
+            if (matrix[currentPos[0]][currentPos[1] - 1] == 0) {
+                freePositions[numTaken] = 8;
+                numTaken++;
+            }
+
+
+            if (numTaken == 0) {
+                alert("Game over!");
+            }
+
+            var randomCell = Math.floor(Math.random() * Math.floor(numTaken));
+
+            if (freePositions[randomCell] == 1) {
+                currentPos[0] = currentPos[0] - 1;
+                currentPos[1] = currentPos[1] - 1;
+            }
+
+            if (freePositions[randomCell] == 2) {
+                currentPos[0] = currentPos[0] - 1;
+                currentPos[1] = currentPos[1];
+            }
+
+            if (freePositions[randomCell] == 3) {
+                currentPos[0] = currentPos[0] - 1;
+                currentPos[1] = currentPos[1] + 1;
+            }
+
+            if (freePositions[randomCell] == 4) {
+                currentPos[0] = currentPos[0];
+                currentPos[1] = currentPos[1] + 1;
+            }
+
+            if (freePositions[randomCell] == 5) {
+                currentPos[0] = currentPos[0] + 1;
+                currentPos[1] = currentPos[1] + 1;
+            }
+
+            if (freePositions[randomCell] == 6) {
+                currentPos[0] = currentPos[0] + 1;
+                currentPos[1] = currentPos[1];
+            }
+
+            if (freePositions[randomCell] == 7) {
+                currentPos[0] = currentPos[0] + 1;
+                currentPos[1] = currentPos[1] - 1;
+            }
+
+            if (freePositions[randomCell] == 8) {
+                currentPos[0] = currentPos[0];
+                currentPos[1] = currentPos[1] - 1;
+            }
+
+            ctx.fillStyle = "#111111"; 
+            ctx.beginPath();
+            ctx.arc((30 + 20 * currentPos[0]), (30 + 20 * currentPos[1]), 5, 0, 2 * Math.PI);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+1        }
 
 
         function mousePos(evt) {

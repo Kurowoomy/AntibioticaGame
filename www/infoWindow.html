@@ -6,17 +6,19 @@
     </head>
     <body>
 
-        <script src="js/infoWindow.js"></script>
-
+        
+        <script src="resources/text/test.txt"></script>
         
         
-        <button id="exampleButton" class="exampleButton" onclick="document.body.style.backgroundColor = 'white'">test</button>
         
-        <div class="infoModal">
+        <button id="exampleButton" class="exampleButton" onclick="document.getElementById('modal').style.visibility = 'visible'">test</button>
+        
+        <div id="modal" class="infoModal">
             <div class="infoWindow">
-
+                <div id="infoText"></div>
+                <button id="infoButton">Got it!</button>
             </div>
         </div>
-
+        <script src="js/infoWindow.js"></script>
     </body>
 </html>

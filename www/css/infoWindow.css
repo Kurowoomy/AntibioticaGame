@@ -2,7 +2,6 @@ body {
     background-color: rgb(207, 249, 255);
 }
 
-
 .infoModal {
     position: fixed;
     z-index: 1; /* Sit on top */
@@ -35,8 +34,8 @@ body {
     background-color: lightgreen;
     margin: 10px;
     border-radius: 50%;
-    width: 400px;
-    height: 400px;
+    width: 200px;
+    height: 200px;
 
     border: none;
     outline: none;

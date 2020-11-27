@@ -1,0 +1,48 @@
+body {
+    background-color: rgb(207, 249, 255);
+}
+
+.infoModal {
+    position: fixed;
+    z-index: 1; /* Sit on top */
+    background-color: rgba(0, 0, 0, 0.4);
+    animation-name: fadeIn; /* Fade in the background */
+    animation-duration: 0.4s;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    visibility: hidden;
+}
+.infoWindow {
+    position: fixed;
+    background-color: white;
+    width: 80%;
+    height: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+@keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+  }
+
+
+.exampleButton {
+    background-color: lightgreen;
+    margin: 10px;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+
+    border: none;
+    outline: none;
+}
+.exampleButton:active {
+    border: 2px solid seagreen;
+}
+.exampleButton:hover {
+    background-color: palegreen;
+}

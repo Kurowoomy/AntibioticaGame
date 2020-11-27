@@ -13,15 +13,14 @@
     </style>
 </head>
 <body>
-    <p>Open image: <input type="file" id="inputImage" /></p>
-    <p id="output"></p>
-    <p id="time"></p>
+    <!-- <p>Open image: <input type="file" id="inputImage" /></p> -->
+    <!-- <p id="output"></p> -->
+    <!-- <p id="time"></p> -->
     <canvas id="canvas" style="margin:12px;" width="300" height="300"></canvas>
-    <img id="img" hidden>
-    <div class="footer" id="results">Move mouse over image to show mouse location and pixel value and alpha</div>
+    <!-- <img id="img" hidden> -->
+    <!-- <div class="footer" id="results">Move mouse over image to show mouse location and pixel value and alpha</div> -->
 
-    <!-- <script src="../lib/umd/index.min.js"></script> -->
-    <script src="js/index.min.js"></script>
+    <!-- <script src="js/index.min.js"></script> -->
     <script>
         var URL = window.URL;
         var cvs = document.getElementById("canvas");
@@ -33,8 +32,8 @@
         cvs.addEventListener("mousemove", mousePos, false);
 
         window.onload = function () {
-            var inputImage = document.getElementById("inputImage");
-            inputImage.addEventListener("input", handleImageFiles, false);
+            // var inputImage = document.getElementById("inputImage");
+            // inputImage.addEventListener("input", handleImageFiles, false);
             drawBoard();
         }
 
@@ -166,44 +165,61 @@
                 freePositions[pos] = 0;
             }
 
-            if (matrix[currentPos[0] - 1][currentPos[1] - 1] == 0) {
-                freePositions[numTaken] = 1;
-                numTaken++;
+
+            if (currentPos[0] - 1 >= 0 && currentPos[1] >= 0) {
+                if (matrix[currentPos[0] - 1][currentPos[1] - 1] == 0) {
+                    freePositions[numTaken] = 1;
+                    numTaken++;
+                }
             }
 
-            if (matrix[currentPos[0] - 1][currentPos[1]] == 0) {
-                freePositions[numTaken] = 2;
-                numTaken++;
+            if (currentPos[0] - 1 >= 0) {
+                if (matrix[currentPos[0] - 1][currentPos[1]] == 0) {
+                    freePositions[numTaken] = 2;
+                    numTaken++;
+                }
             }
 
-            if (matrix[currentPos[0] - 1][currentPos[1] + 1] == 0) {
-                freePositions[numTaken] = 3;
-                numTaken++;
+            if (currentPos[0] - 1 >= 0 && currentPos[1] + 1 <= 7) {
+                if (matrix[currentPos[0] - 1][currentPos[1] + 1] == 0) {
+                    freePositions[numTaken] = 3;
+                    numTaken++;
+                }
             }
 
-            if (matrix[currentPos[0]][currentPos[1] + 1] == 0) {
-                freePositions[numTaken] = 4;
-                numTaken++;
+            if (currentPos[1] + 1 <= 7) {
+                if (matrix[currentPos[0]][currentPos[1] + 1] == 0) {
+                    freePositions[numTaken] = 4;
+                    numTaken++;
+                }
             }
 
-            if (matrix[currentPos[0] + 1][currentPos[1] + 1] == 0) {
-                freePositions[numTaken] = 5;
-                numTaken++;
+            if (currentPos[0] + 1 <= 7 && currentPos[1] + 1 <= 7) {
+                if (matrix[currentPos[0] + 1][currentPos[1] + 1] == 0) {
+                    freePositions[numTaken] = 5;
+                    numTaken++;
+                }
             }
 
-            if (matrix[currentPos[0] + 1][currentPos[1]] == 0) {
-                freePositions[numTaken] = 6;
-                numTaken++;
+            if (currentPos[0] + 1 <= 7) {
+                if (matrix[currentPos[0] + 1][currentPos[1]] == 0) {
+                    freePositions[numTaken] = 6;
+                    numTaken++;
+                }
             }
 
-            if (matrix[currentPos[0] + 1][currentPos[1] - 1] == 0) {
-                freePositions[numTaken] = 7;
-                numTaken++;
+            if (currentPos[0] + 1 <= 7 && currentPos[1] - 1 >= 0) {
+                if (matrix[currentPos[0] + 1][currentPos[1] - 1] == 0) {
+                    freePositions[numTaken] = 7;
+                    numTaken++;
+                }
             }
 
-            if (matrix[currentPos[0]][currentPos[1] - 1] == 0) {
-                freePositions[numTaken] = 8;
-                numTaken++;
+            if ( currentPos[1] - 1 >= 0) {
+                if (matrix[currentPos[0]][currentPos[1] - 1] == 0) {
+                    freePositions[numTaken] = 8;
+                    numTaken++;
+                }
             }
 
 
@@ -268,10 +284,10 @@
             var x = parseInt(evt.clientX - rect.left);
             var y = parseInt(evt.clientY - rect.top);
             var p = ctx.getImageData(x, y, 1, 1).data;
-            results.innerHTML = '<table style="width:100%;table-layout:fixed"><td>X: '
-                + x + '</td><td>Y: ' + y + '</td><td>Red: '
-                + p[0] + '</td><td>Green: ' + p[1] + '</td><td>Blue: '
-                + p[2] + '</td><td>Alpha: ' + p[3] + "</td></table>";
+            // results.innerHTML = '<table style="width:100%;table-layout:fixed"><td>X: '
+            //     + x + '</td><td>Y: ' + y + '</td><td>Red: '
+            //     + p[0] + '</td><td>Green: ' + p[1] + '</td><td>Blue: '
+            //     + p[2] + '</td><td>Alpha: ' + p[3] + "</td></table>";
             return { x, y };
         }
 

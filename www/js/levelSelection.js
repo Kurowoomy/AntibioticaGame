@@ -1,9 +1,6 @@
-// Variabler för levelSelection-sidan
-var levelButtons = [];
-var doses = 30;
-
 // Funktioner för levelSelection-sidan
-function genButtons() {
+function genButtons(doses) {
+    var levelButtons = [];
 
     for (let i = 1; i <= doses; i++) {
 
@@ -22,9 +19,9 @@ function genButtons() {
     }
 }
 
+// This is where we move to level page
 function startLevel(levelIndex) {
-    // This is where we move to level page
-    var xString = levelButtons[levelIndex - 1].levelIndex.toString();
-    document.getElementById("levelButtonMessage").innerText = 
-    "Level " + xString + " selected!";
+    window.localStorage.currentLevelIndex = levelIndex;
+    
+    window.location.href = "Board.html";
 }

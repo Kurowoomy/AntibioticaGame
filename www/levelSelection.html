@@ -11,24 +11,30 @@
         <script src="js/levelSelection.js"></script>
         <script src="js/infoWindow.js"></script>
 
-        <!-- Använder funktion från levelSelection.js för att generera knapparna -->
         <script>
             genButtons(30);
         </script>
 
-        <!-- Plats där knapp genererar text -->
-        <div id="levelButtonMessage"></div>
 
+        <!-- Innehåller hittills endast informationsrutorna -->
         <div class="menuTabs" id="menuTabs">
+
+            <!-- Allt har id bara för att fliken inte ska försvinna när man trycker på elementen inne i fliken -->
+            <!-- *se window.onclick i levelSelection.js, finns säkert bättre sätt att göra detta på... -->
             <button class="tabButton" id="infoTabButton" onclick="toggleCollectionTab('infoTab')">Info</button>
             <div class="collectionTab" id="infoTab">
-                <div class="collectionTitle">Antibiotica Information</div>
-                <div class="collectionProgress">1/5</div>
-                <div class="collectionItems" id="collectionItems"></div>
+
+                <div class="collectionTitle" id="infoTitle">Antibiotica Information</div>
+                <div class="collectionProgress" id="infoProgress">1/5</div>
+
+                <div class="collectionItems" id="infoItems"></div>
+                <!-- Lägg till infoknappar här -->
                 <script>
-                    createInfoButton("collectionItems", "1", exampleText, "resources/images/exampleImage.png");
+                    createInfoButton("infoItems", "1", exampleText, "resources/images/exampleImage.png");
+                    createInfoButton("infoItems", "2", exampleText2);
                 </script>
             </div>
+
         </div>
 
     </body>

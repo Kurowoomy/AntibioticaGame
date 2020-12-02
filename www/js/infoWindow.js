@@ -40,10 +40,9 @@ InfoWindow.prototype.setAndShowContent = function(infoText, imageSrc) {
 
 
 // Skapar en knapp som ändrar och visar upp inforutan
-// TODO: Skapa array så man kan komma åt infoknapparna senare om man vill
 function createInfoButton(parentID, title, infoText, imageSrc) {
     var infoButton = document.createElement("button"); // objekt
-    infoButton.classList.add("exampleButton"); // css
+    infoButton.classList.add("infoButton"); // css
     
     // Sätt in knapp i body eller specifierad parent
     var parent = document.getElementById(parentID);

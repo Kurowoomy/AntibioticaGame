@@ -4,12 +4,11 @@ body {
 
 .levelButtonStyle {
     background-color: lightgreen;
-    margin: 10px;
-    border-radius: 50%;
     width: 40px;
     height: 40px;
-
+    margin: 10px;
     border: none;
+    border-radius: 50%;
     outline: none;
 }
 .levelButtonStyle:active {
@@ -20,22 +19,21 @@ body {
 }
 
 .menuTabs {
-    position: fixed;
     background-color: cadetblue;
+    position: fixed;
     z-index: 0.5;
-    width: 100%;
-    height: 80px;
     bottom: 0px;
     left: 0px;
+    width: 100%;
+    height: 80px;
 }
 .tabButton {
     background-color: azure;
-    margin: 15px;
-    border-radius: 50%;
     width: 50px;
     height: 50px;
-
+    margin: 15px;
     border: none;
+    border-radius: 50%;
     outline: none;
 }
 .tabButton:active {
@@ -43,8 +41,8 @@ body {
 }
 
 .collectionTab {
-    position: absolute;
     background-color: azure;
+    position: absolute;
     z-index: 0.5;
     bottom: 80px;
     left: 0px;
@@ -63,7 +61,7 @@ body {
     right: 10px;
 }
 .collectionItems {
-    position: relative;
-    /* margin: auto; TODO: center item div */
-    background-color: lightblue;
+    position: absolute;
+    top: 60%;
+    transform: translate(0%, -50%);
 }

@@ -3,10 +3,13 @@
     <head>
         <title>Level selection</title>
         <link rel="stylesheet" href="css/levelSelection.css">
+        <link rel="stylesheet" href="css/infoWindow.css">
     </head>
     <body>
 
+        <script src="resources/text/infoTest.txt"></script>
         <script src="js/levelSelection.js"></script>
+        <script src="js/infoWindow.js"></script>
 
         <!-- Använder funktion från levelSelection.js för att generera knapparna -->
         <script>
@@ -15,6 +18,18 @@
 
         <!-- Plats där knapp genererar text -->
         <div id="levelButtonMessage"></div>
+
+        <div class="menuTabs" id="menuTabs">
+            <button class="tabButton" id="infoTabButton" onclick="toggleCollectionTab('infoTab')">Info</button>
+            <div class="collectionTab" id="infoTab">
+                <div class="collectionTitle">Antibiotica Information</div>
+                <div class="collectionProgress">1/5</div>
+                <div class="collectionItems" id="collectionItems"></div>
+                <script>
+                    createInfoButton("collectionItems", "1", exampleText, "resources/images/exampleImage.png");
+                </script>
+            </div>
+        </div>
 
     </body>
 </html>

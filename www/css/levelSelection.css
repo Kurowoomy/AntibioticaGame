@@ -11,11 +11,59 @@ body {
 
     border: none;
     outline: none;
-    
 }
 .levelButtonStyle:active {
     border: 2px solid seagreen;
 }
 .levelButtonStyle:hover {
     background-color: palegreen;
+}
+
+.menuTabs {
+    position: fixed;
+    background-color: cadetblue;
+    z-index: 0.5;
+    width: 100%;
+    height: 80px;
+    bottom: 0px;
+    left: 0px;
+}
+.tabButton {
+    background-color: azure;
+    margin: 15px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+
+    border: none;
+    outline: none;
+}
+.tabButton:active {
+    border: 4px solid aquamarine;
+}
+
+.collectionTab {
+    position: absolute;
+    background-color: azure;
+    z-index: 0.5;
+    bottom: 80px;
+    left: 0px;
+    width: 100%;
+    height: 120px;
+    display: none;
+}
+.collectionTitle {
+    position: relative;
+    top: 5px;
+    left: 10px;
+}
+.collectionProgress {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+.collectionItems {
+    position: relative;
+    /* margin: auto; TODO: center item div */
+    background-color: lightblue;
 }

@@ -1,3 +1,5 @@
+
+
 // Funktioner för levelSelection-sidan
 function genButtons(doses) {
     var levelButtons = [];
@@ -19,9 +21,32 @@ function genButtons(doses) {
     }
 }
 
+
+function toggleCollectionTab(tabID) {
+    var collectionTab = document.getElementById(tabID);
+
+    if(collectionTab.style.display == "" || collectionTab.style.display == "none") {
+        collectionTab.style.display = "block";
+    }
+    else {
+        collectionTab.style.display = "none";
+    }
+
+}
+
 // This is where we move to level page
 function startLevel(levelIndex) {
     window.localStorage.currentLevelIndex = levelIndex;
     
     window.location.href = "Board.html";
+}
+
+
+window.onclick = function(event) {
+    var infoTab = document.getElementById("infoTab");
+    var infoTabButton = document.getElementById("infoTabButton");
+
+    if (event.target !== infoTab && event.target !== infoTabButton) {
+        infoTab.style.display = "none";
+    }
 }

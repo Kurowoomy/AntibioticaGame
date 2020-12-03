@@ -12,8 +12,23 @@
         <script src="js/infoWindow.js"></script>
 
         <script>
-            genButtons(30);
+            genButtons(localStorage.dosesPerDay * localStorage.totalDays);
         </script>
+
+
+        
+        <!-- LocalStorage testing -->
+        <p></p>
+        <button id="testBtn" onclick="takeDose()">Take one dose</button>
+        <p id="doseText"></p>
+        <script>
+            function takeDose() {
+                localStorage.dosesTaken++;
+                document.getElementById("doseText").innerHTML="Doses taken: " + localStorage.dosesTaken;
+            }
+            document.getElementById("doseText").innerHTML="Doses taken: " + localStorage.dosesTaken;
+        </script>
+
 
 
         <!-- Innehåller hittills endast informationsrutorna -->
@@ -33,6 +48,7 @@
                     createInfoButton("infoItems", "1", exampleText, "resources/images/exampleImage.png");
                     createInfoButton("infoItems", "2", exampleText2);
                 </script>
+                
             </div>
 
         </div>

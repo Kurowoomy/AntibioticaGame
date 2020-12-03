@@ -41,6 +41,7 @@
         //var matrix = [][];
         var matrix = Array.from(Array(8), () => new Array(8));
         var currentPos = [];
+        var direction = 0;
 
         function moveVirusRandom(){
             moveVirus();
@@ -64,7 +65,7 @@
 
                 // Button position and dimensions 
             var buttonX = 70; 
-            var buttonY = 80; 
+            var buttonY = 200; 
             var buttonW = 60; 
             var buttonH = 30; 
 
@@ -103,13 +104,42 @@
 
           
                 // Render button 
-            //ctx.fillStyle = 'red'; 
-            //ctx.fillRect(buttonX, buttonY, buttonW, buttonH); 
-
+            ctx.fillStyle = 'green'; 
+            ctx.fillRect(buttonX, buttonY, buttonW, buttonH); 
+            ctx.fillStyle = "Black";
+            ctx.font = "15px Arial";
+            ctx.fillText("Horizont", 73, 220);
                 // Add event listener to canvas element 
             canvas.addEventListener('click', function(event) { 
             // Control that click event occurred within position of button 
             // NOTE: This assumes canvas is positioned at top left corner  
+
+                let brect = canvas.getBoundingClientRect();
+                let bX = event.clientX - brect.left;
+                let bY = event.clientY - brect.top;
+
+                if (bX > buttonX && bX < buttonX + buttonW && bY > buttonY && bY < buttonY + buttonH) {
+                    if (direction == 1) {
+                        direction = 0;
+
+                        ctx.fillStyle = 'green'; 
+                        ctx.fillRect(buttonX, buttonY, buttonW, buttonH); 
+                        ctx.fillStyle = "Black";
+                        ctx.font = "15px Arial";
+                        ctx.fillText("Horizont", 73, 220);
+                    }
+                    else { 
+                        direction = 1;
+
+                        ctx.fillStyle = 'green'; 
+                        ctx.fillRect(buttonX, buttonY, buttonW, buttonH); 
+                        ctx.fillStyle = "Black";
+                        ctx.font = "15px Arial";
+                        ctx.fillText("Vertical", 75, 220);
+                    }
+
+                }
+
 
                 if (alloedToClick == 1)
                 {
@@ -129,11 +159,25 @@
                                 y > (20 + 20 * j) &&
                                 y < (40 + 20 * j))
                                 {
-                                    matrix[i][j] = !matrix[i][j];
+                                    //matrix[i][j] = !matrix[i][j];
+                                    matrix[i][j] = 1;
                                     if (matrix[i][j] == 1) {
                                         ctx.fillStyle = "#c82124"; //red
                                         ctx.beginPath();
                                         ctx.arc((30 + 20 * i), (30 + 20 * j), 5, 0, 2 * Math.PI);
+                                        ctx.closePath();
+                                        ctx.fill();
+                                        ctx.stroke();
+                                        ctx.beginPath();
+                                        if (direction == 0){
+                                           
+                                            ctx.arc((30 + 20 * (i + 1)), (30 + 20 * j), 5, 0, 2 * Math.PI);
+                                            matrix[i + 1][j] = 1;
+                                        }
+                                        else {
+                                            ctx.arc((30 + 20 * (i)), (30 + 20 * (j + 1)), 5, 0, 2 * Math.PI);
+                                            matrix[i][j + 1] = 1;
+                                        }
                                         ctx.closePath();
                                         ctx.fill();
                                         ctx.stroke();

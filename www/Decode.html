@@ -35,70 +35,7 @@
         window.onload = function () {
             var inputImage = document.getElementById("inputImage");
             inputImage.addEventListener("input", handleImageFiles, false);
-            //drawBoard();
         }
-
-        function drawBoard() {
-            var bWidth = 8;
-            var bHeight = 8;
-            var c = document.getElementById("canvas");
-            var ctx = c.getContext("2d");
-            ctx.beginPath();
-            ctx.moveTo(20, 20);
-            var ibegin = 0;
-            var iend = 0;
-
-                // Button position and dimensions 
-            var buttonX = 70; 
-            var buttonY = 80; 
-            var buttonW = 60; 
-            var buttonH = 30; 
-
-            for (var i = 0; i < bWidth + 1; i++)
-            {
-                ctx.moveTo(20 + 20 * i,20);
-                ctx.lineTo(20 + 20 * i, 20 + 20 * bHeight);
-            }
-
-            for (var j = 0; j < bHeight + 1; j++)
-            {
-                ctx.moveTo(20, 20 + 20 * j);
-                ctx.lineTo(20 + 20 * bWidth,20 +  20 * j);
-            }
-            
-            ctx.stroke();
-
-          
-                // Render button 
-            ctx.fillStyle = 'red'; 
-            ctx.fillRect(buttonX, buttonY, buttonW, buttonH); 
-
-                // Add event listener to canvas element 
-            canvas.addEventListener('click', function(event) { 
-            // Control that click event occurred within position of button 
-            // NOTE: This assumes canvas is positioned at top left corner  
-
-            let rect = canvas.getBoundingClientRect()
-            
-                let x = event.clientX - rect.left;
-                let y = event.clientY - rect.top;
-            
-
-            alert("X =  " + x + " " +  "Y = " + y); 
-            if ( 
-                x > buttonX &&  
-                x < buttonX + buttonW && 
-                y > buttonY &&  
-                y < buttonY + buttonH 
-            ) { 
-                // Executes if button was clicked! 
-                alert('Button was clicked!'); 
-            } 
-            }); 
-
-            
-        }
-
 
         function mousePos(evt) {
             var rect = cvs.getBoundingClientRect();
@@ -133,9 +70,9 @@
                 output.removeAttribute("style");
                 output.innerHTML = "Version: " + decoded.version + "<br>Size: " + decoded.size + "<br>Data: " + decoded.data;
 
-                var s = SplitString(decoded.data);
+                //var s = SplitString(decoded.data);
 
-                output.innerHTML = "<br>Data: " + s;
+                output.innerHTML = "<br>Data: " + decoded.data;
 
             } catch (e) {
                 output.setAttribute("style", "color:#FF0000;");

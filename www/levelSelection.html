@@ -3,18 +3,55 @@
     <head>
         <title>Level selection</title>
         <link rel="stylesheet" href="css/levelSelection.css">
+        <link rel="stylesheet" href="css/infoWindow.css">
     </head>
     <body>
 
+        <script src="resources/text/infoTest.txt"></script>
         <script src="js/levelSelection.js"></script>
+        <script src="js/infoWindow.js"></script>
 
-        <!-- Använder funktion från levelSelection.js för att generera knapparna -->
         <script>
-            genButtons();
+            genButtons(localStorage.dosesPerDay * localStorage.totalDays);
         </script>
 
-        <!-- Plats där knapp genererar text -->
-        <div id="levelButtonMessage"></div>
+
+        
+        <!-- LocalStorage testing -->
+        <p></p>
+        <button id="testBtn" onclick="takeDose()">Take one dose</button>
+        <p id="doseText"></p>
+        <script>
+            function takeDose() {
+                localStorage.dosesTaken++;
+                document.getElementById("doseText").innerHTML="Doses taken: " + localStorage.dosesTaken;
+            }
+            document.getElementById("doseText").innerHTML="Doses taken: " + localStorage.dosesTaken;
+        </script>
+
+
+
+        <!-- Innehåller hittills endast informationsrutorna -->
+        <div class="menuTabs" id="menuTabs">
+
+            <!-- Allt har id bara för att fliken inte ska försvinna när man trycker på elementen inne i fliken -->
+            <!-- *se window.onclick i levelSelection.js, finns säkert bättre sätt att göra detta på... -->
+            <button class="tabButton" id="infoTabButton" onclick="toggleCollectionTab('infoTab')">Info</button>
+            <div class="collectionTab" id="infoTab">
+
+                <div class="collectionTitle" id="infoTitle">Antibiotica Information</div>
+                <div class="collectionProgress" id="infoProgress">1/5</div>
+
+                <div class="collectionItems" id="infoItems"></div>
+                <!-- Lägg till infoknappar här -->
+                <script>
+                    createInfoButton("infoItems", "1", exampleText, "resources/images/exampleImage.png");
+                    createInfoButton("infoItems", "2", exampleText2);
+                </script>
+                
+            </div>
+
+        </div>
 
     </body>
 </html>

@@ -25,10 +25,11 @@
     <script src="js/emmasBoard.js"></script>
     <script src="js/nextWindow.js"></script>
 
-    <div class="nextText">Next:
-        <button onclick="updateNextWindow()"></button>
+    <div id="nextWindow">
+        <div id="nextText">Next:</div>
+        <div id="nextBlocks"></div>
+        <button id="nextButton" onclick="updateNextWindow()">New block</button>
     </div>
-    <div id="nextWindow"></div>
 
     <script>
         genBlocks();

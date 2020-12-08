@@ -32,7 +32,7 @@ function genBlocks() {
     }
 
     // draw by creating elements in html
-    var nextWindow = document.getElementById("nextWindow");
+    var nextWindow = document.getElementById("nextBlocks");
     for(var i = 0; i < nextBlocks.length; i++) {
 
         var block = document.createElement("div");
@@ -62,7 +62,7 @@ function updateNextWindow() {
 
     // draw by creating element in html
     // remove first block in html
-    var nextWindow = document.getElementById("nextWindow");
+    var nextWindow = document.getElementById("nextBlocks");
     nextWindow.firstChild.remove();
     // draw the new block by adding it as child to the nextBlocks element
     var block = document.createElement("div");

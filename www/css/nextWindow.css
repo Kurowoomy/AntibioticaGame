@@ -1,15 +1,19 @@
 #nextWindow {
     position: fixed;
+    top: 254px;
+    left: 40px;
+}
+#nextBlocks {
+    position: relative;
     background-color: gainsboro;
-    top: 270px;
-    left: 58px;
     height: 40px;
     width: 160px;
 }
-.nextText {
-    position: fixed;
-    top: 254px;
-    left: 58px;
+#nextText {
+    position: relative;
+}
+#nextButton {
+    position: relative;
 }
 
 .nextBlock {

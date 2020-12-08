@@ -1,0 +1,56 @@
+
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title> Decoder </title>
+        <link rel="stylesheet" href="css/cameraDecoder.css">
+    </head>
+    <body>
+        <button id="cameraTakePicture" >TAKE PICTURE</button>
+        <p>Open image: <input type="file" id="inputImage" /></p>
+        <img id = "img" alt="Bild!"></img>
+        <p id="output"></p>
+        <p id="time"></p>
+        <canvas id="canvas" width="300" height="300"></canvas>
+
+        <script src="cordova.js"></script>
+        <script src="js/index.js"></script>
+        <script src="js/index.min.js"></script>
+        <script src="js/decoder.js"></script>
+        <script>
+            document.getElementById("cameraTakePicture").addEventListener ("click", cameraTake); 
+
+            function cameraTake() {
+                //setts options for photo
+                var options =   {   
+                    quality: 50,
+                    destinationType: Camera.DestinationType.FILE_URL,
+                    sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Album
+                    encodingType: 0     // 0=JPG 1=PNG
+                };
+
+                //camera open
+                navigator.camera.getPicture(onSuccess, onFail, options);
+
+                function onSuccess(imageURL) { //onece piture is taken succsesfully
+                    var image = document.getElementById('img');
+                    image.src = imageURL;
+
+                    imageURL = decode();
+
+                    document.getElementById("cameraTakePicture").innerText="Success";
+                }
+
+                function onFail(message) {//taking piture gave an error/exaption
+                    document.getElementById("cameraTakePicture").innerText=message;
+                    alert('Failed because: ' + message);
+                }
+
+            }
+            
+        </script>
+    </body>
+</html>
+

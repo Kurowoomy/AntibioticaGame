@@ -13,7 +13,10 @@
     </style>
 </head>
 <body>
+    <button id = "cameraTakePicture" onclick="cameraTake">TAKE PICTURE</button>
+    <img id = "myImage"></img>
     <p>Open image: <input type="file" id="inputImage" /></p>
+    <div id="testText"></div>
     <p id="output"></p>
     <p id="time"></p>
     <canvas id="canvas" style="margin:12px;" width="300" height="300"></canvas>
@@ -21,6 +24,7 @@
     <div class="footer" id="results">Move mouse over image to show mouse location and pixel value and alpha</div>
 
     <!-- <script src="../lib/umd/index.min.js"></script> -->
+    <script src="cordova.js"></script>
     <script src="js//index.min.js"></script>
     <script>
         var URL = window.URL;
@@ -32,10 +36,119 @@
 
         cvs.addEventListener("mousemove", mousePos, false);
 
+        // -----------------------------------------------------------------------------
+        document.getElementById("cameraTakePicture").addEventListener 
+                ("click", cameraTake);
+
+        function cameraTake() {
+
+            var options =   {   quality: 50,
+                destinationType: Camera.DestinationType.FILE_URI,
+                sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Album
+                encodingType: 0     // 0=JPG 1=PNG
+            };
+
+
+                document.getElementById("cameraTakePicture").innerText=
+                                        "New Button Text using innerHTML";
+
+                                    
+
+            navigator.camera.getPicture(onSuccess, onFail, options);
+
+                document.getElementById("cameraTakePicture").innerText=
+                                        "Second text";
+
+            function onSuccess(imageURL) {
+                // var image = document.getElementById('myImage');
+                // image.onload = decode;
+                // image.src = imageURL;
+                img = document.getElementById("myImage");
+                img.onload = decode;
+                img.src = imageURL;
+
+                document.getElementById("cameraTakePicture").innerText=
+                                                        "Success";
+                // document.getElementById("testText").innerHTML = decodedText;
+            }
+
+            function onFail(message) {
+                document.getElementById("cameraTakePicture").innerText=
+                                                        message;
+                alert('Failed because: ' + message);
+            }
+
+        }
+
+        // -----------------------------------------------------------------------------
+
         window.onload = function () {
             var inputImage = document.getElementById("inputImage");
             inputImage.addEventListener("input", handleImageFiles, false);
+            //drawBoard();
         }
+
+        function drawBoard() {
+            var bWidth = 8;
+            var bHeight = 8;
+            var c = document.getElementById("canvas");
+            var ctx = c.getContext("2d");
+            ctx.beginPath();
+            ctx.moveTo(20, 20);
+            var ibegin = 0;
+            var iend = 0;
+
+                // Button position and dimensions 
+            var buttonX = 70; 
+            var buttonY = 80; 
+            var buttonW = 60; 
+            var buttonH = 30; 
+
+            for (var i = 0; i < bWidth + 1; i++)
+            {
+                ctx.moveTo(20 + 20 * i,20);
+                ctx.lineTo(20 + 20 * i, 20 + 20 * bHeight);
+            }
+
+            for (var j = 0; j < bHeight + 1; j++)
+            {
+                ctx.moveTo(20, 20 + 20 * j);
+                ctx.lineTo(20 + 20 * bWidth,20 +  20 * j);
+            }
+            
+            ctx.stroke();
+
+          
+                // Render button 
+            ctx.fillStyle = 'red'; 
+            ctx.fillRect(buttonX, buttonY, buttonW, buttonH); 
+
+                // Add event listener to canvas element 
+            canvas.addEventListener('click', function(event) { 
+            // Control that click event occurred within position of button 
+            // NOTE: This assumes canvas is positioned at top left corner  
+
+            let rect = canvas.getBoundingClientRect()
+            
+                let x = event.clientX - rect.left;
+                let y = event.clientY - rect.top;
+            
+
+            alert("X =  " + x + " " +  "Y = " + y); 
+            if ( 
+                x > buttonX &&  
+                x < buttonX + buttonW && 
+                y > buttonY &&  
+                y < buttonY + buttonH 
+            ) { 
+                // Executes if button was clicked! 
+                alert('Button was clicked!'); 
+            } 
+            }); 
+
+            
+        }
+
 
         function mousePos(evt) {
             var rect = cvs.getBoundingClientRect();
@@ -52,7 +165,7 @@
         function handleImageFiles() {
             var url = URL.createObjectURL(document.getElementById("inputImage").files[0]);
             img.onload = decode;
-            img.src = url;
+            img.src = "i_ching_ola.png";
         }
 
         function decode() {
@@ -69,10 +182,7 @@
                 const decoded = iching.decode(imageData.data, imageData.width, imageData.height);
                 output.removeAttribute("style");
                 output.innerHTML = "Version: " + decoded.version + "<br>Size: " + decoded.size + "<br>Data: " + decoded.data;
-
-                //var s = SplitString(decoded.data);
-
-                output.innerHTML = "<br>Data: " + decoded.data;
+                document.getElementById("testText").innerHTML = imageData.height;
 
             } catch (e) {
                 output.setAttribute("style", "color:#FF0000;");

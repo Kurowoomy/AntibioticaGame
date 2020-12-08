@@ -3,25 +3,24 @@ body {
 }
 
 .infoModal {
-    position: fixed;
-    z-index: 1; /* Sit on top */
     background-color: rgba(0, 0, 0, 0.4);
-    animation-name: fadeIn; /* Fade in the background */
-    animation-duration: 0.4s;
+    position: fixed;
+    z-index: 1;
     top: 0px;
     left: 0px;
     width: 100%;
     height: 100%;
+    animation-name: fadeIn;
+    animation-duration: 0.4s;
     overflow: auto;
-    visibility: hidden;
 }
 .infoWindow {
-    position: fixed;
     background-color: white;
-    width: 80%;
-    height: 80%;
+    position: fixed;
     top: 50%;
     left: 50%;
+    width: 80%;
+    height: 80%;
     transform: translate(-50%, -50%);
 }
 @keyframes fadeIn {
@@ -30,19 +29,15 @@ body {
   }
 
 
-.exampleButton {
-    background-color: lightgreen;
+.infoButton {
+    background-color: antiquewhite;
+    width: 50px;
+    height: 50px;
     margin: 10px;
-    border-radius: 50%;
-    width: 200px;
-    height: 200px;
-
     border: none;
+    border-radius: 50%;
     outline: none;
 }
-.exampleButton:active {
-    border: 2px solid seagreen;
-}
-.exampleButton:hover {
-    background-color: palegreen;
+.infoButton:active {
+    border: 5px solid burlywood;
 }

@@ -1,0 +1,32 @@
+#nextWindow {
+    position: fixed;
+    background-color: gainsboro;
+    top: 270px;
+    left: 58px;
+    height: 40px;
+    width: 160px;
+}
+.nextText {
+    position: fixed;
+    top: 254px;
+    left: 58px;
+}
+
+.nextBlock {
+    margin: 5px;
+    display: inline-block;
+}
+.horizontal {
+    width: 30px;
+    height: 15px;
+}
+.vertical {
+    width: 15px;
+    height: 30px;
+}
+.block {
+    background-color: red;
+}
+.erase {
+    background-color: green;
+}

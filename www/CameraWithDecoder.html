@@ -17,17 +17,17 @@
         <script src="cordova.js"></script>
         <script src="js/index.js"></script>
         <script src="js/index.min.js"></script>
-        
-        
-        <script>
-            document.getElementById("cameraTakePicture").addEventListener ("click", cameraTake);
 
+        <script>
             var URL = window.URL;
             var cvs = document.getElementById("canvas");
             var ctx = cvs.getContext("2d");
             var img = document.getElementById("img");
             var res = document.getElementById("results");
             var time = document.getElementById("time");
+          
+            document.getElementById("cameraTakePicture").addEventListener ("click", cameraTake); 
+
 
             function cameraTake() {
                 //setts options for photo
@@ -42,9 +42,11 @@
                 navigator.camera.getPicture(onSuccess, onFail, options);
 
                 function onSuccess(imageURL) { //onece piture is taken succsesfully
+
                     img.src = imageURL;
                     
                     img.onload=decode;
+
 
                     document.getElementById("cameraTakePicture").innerText="Success";
                 }
@@ -55,6 +57,7 @@
                 }
 
             }
+
             //de codeer
             function decode() {
                 const startTime = Date.now();
@@ -81,6 +84,7 @@
                 const endTime = Date.now();
                 time.innerHTML = "Time taken: " + (endTime - startTime) + "ms";
             }
+
         </script>
     </body>
 </html>

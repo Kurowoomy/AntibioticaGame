@@ -1,0 +1,125 @@
+
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title> Decoder Demo </title>
+        <style>
+            div.footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                margin: 0 auto;
+                background: #0072BB;
+                color:#FFFFFF;
+            }
+
+            .button {
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+            .button1 {background-color: #4CAF50;} /* Green */
+        </style>
+    </head>
+    <body>
+        
+        <div class="app">
+            <h1>Olas kameratest23</h1>
+            
+            <button id = "cameraTakePicture" onclick="cameraTake">TAKE PICTURE</button>
+            <img id = "myImage" alt="Bild!"></img>
+            <p>Open image: <input type="file" id="inputImage" /></p>
+            <p id="output"></p>
+            <p id="time"></p>
+            <canvas id="canvas" style="margin:12px;" width="300" height="300"></canvas>
+
+        </div>
+        
+        <script src="cordova.js"></script>
+        <script src="js/index.js"></script>
+        <script src="js//index.min.js"></script>
+      
+        
+        
+        <script>
+            document.getElementById("cameraTakePicture").addEventListener ("click", cameraTake); 
+
+            var URL = window.URL;
+            var cvs = document.getElementById("canvas");
+            var ctx = cvs.getContext("2d");
+            var img = document.getElementById("img");
+            var res = document.getElementById("results");
+            var time = document.getElementById("time");
+
+            
+            function cameraTake() {
+                var img = document.getElementById("img");
+                var options =   {   
+                    quality: 50,
+                    destinationType: Camera.DestinationType.DATA_URL,
+                    sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Album
+                    encodingType: 0     // 0=JPG 1=PNG
+                };
+                
+
+                document.getElementById("cameraTakePicture").innerText="New Button Text using innerHTML";
+
+                navigator.camera.getPicture(onSuccess, onFail, options);
+
+                document.getElementById("cameraTakePicture").innerText="Second text";
+
+                function onSuccess(imageURL) {
+                    var image = document.getElementById('myImage');
+                    image.src = imageURL;
+
+                    imageURL = decode();
+
+                    document.getElementById("cameraTakePicture").innerText="Success";
+                }
+
+                function onFail(message) {
+                    document.getElementById("cameraTakePicture").innerText=message;
+                    alert('Failed because: ' + message);
+                }
+
+            }
+
+        function decode() {
+            alert("Decodeing has begun");
+            const startTime = Date.now();
+
+            cvs.width = img.width;
+            cvs.height = img.height;
+            ctx.drawImage(img, 0, 0);
+
+            output = document.getElementById("output");
+
+            try {
+                const imageData = ctx.getImageData(0, 0, img.width, img.height);
+                const decoded = iching.decode(imageData.data, imageData.width, imageData.height);
+                output.removeAttribute("style");
+                output.innerHTML = "Version: " + decoded.version + "<br>Size: " + decoded.size + "<br>Data: " + decoded.data;
+
+
+                output.innerHTML = "<br>Data: " + decoded.data;
+                
+            } catch (e) {
+                output.setAttribute("style", "color:#FF0000;");
+                output.innerHTML = e.message;
+            }
+
+            const endTime = Date.now();
+            time.innerHTML = "Time taken: " + (endTime - startTime) + "ms";
+        }
+        </script>
+    </body>
+</html>
+

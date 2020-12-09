@@ -1,0 +1,87 @@
+
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title> Decoder </title>
+        <link rel="stylesheet" href="css/cameraDecoder.css">
+    </head>
+    <body>
+        <button id="cameraTakePicture" >TAKE PICTURE</button>
+        <img id = "img" alt="Bild!"></img>
+        <p id="output"></p>
+        <p id="time"></p>
+        <canvas id="canvas" width="300" height="300"></canvas>
+
+        <script src="cordova.js"></script>
+        <script src="js/index.js"></script>
+        <script src="js/index.min.js"></script>
+        
+        
+        <script>
+            document.getElementById("cameraTakePicture").addEventListener ("click", cameraTake);
+
+            var URL = window.URL;
+            var cvs = document.getElementById("canvas");
+            var ctx = cvs.getContext("2d");
+            var img = document.getElementById("img");
+            var res = document.getElementById("results");
+            var time = document.getElementById("time");
+
+            function cameraTake() {
+                //setts options for photo
+                var options =   {   
+                    quality: 50,
+                    destinationType: Camera.DestinationType.FILE_URL,
+                    sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Album
+                    encodingType: 0     // 0=JPG 1=PNG
+                };
+
+                //camera open
+                navigator.camera.getPicture(onSuccess, onFail, options);
+
+                function onSuccess(imageURL) { //onece piture is taken succsesfully
+                    img.src = imageURL;
+                    
+                    img.onload=decode;
+
+                    document.getElementById("cameraTakePicture").innerText="Success";
+                }
+
+                function onFail(message) {//taking piture gave an error/exaption
+                    document.getElementById("cameraTakePicture").innerText=message;
+                    alert('Failed because: ' + message);
+                }
+
+            }
+            //de codeer
+            function decode() {
+                const startTime = Date.now();
+
+                cvs.width = img.width;
+                cvs.height = img.height;
+                ctx.drawImage(img, 0, 0);
+
+                output = document.getElementById("output");
+
+                try {
+                    const imageData = ctx.getImageData(0, 0, img.width, img.height);
+                    const decoded = iching.decode(imageData.data, imageData.width, imageData.height);
+                    output.removeAttribute("style");
+                    output.innerHTML = "Version: " + decoded.version + "<br>Size: " + decoded.size + "<br>Data: " + decoded.data;
+
+
+                    output.innerHTML = "<br>Data: " + decoded.data;
+                } catch (e) {
+                    output.setAttribute("style", "color:#FF0000;");
+                    output.innerHTML = e.message;
+                }
+
+                const endTime = Date.now();
+                time.innerHTML = "Time taken: " + (endTime - startTime) + "ms";
+            }
+        </script>
+    </body>
+</html>
+

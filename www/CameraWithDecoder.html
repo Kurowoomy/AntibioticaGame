@@ -9,7 +9,6 @@
     </head>
     <body>
         <button id="cameraTakePicture" >TAKE PICTURE</button>
-        <p>Open image: <input type="file" id="inputImage" /></p>
         <img id = "img" alt="Bild!"></img>
         <p id="output"></p>
         <p id="time"></p>
@@ -18,9 +17,17 @@
         <script src="cordova.js"></script>
         <script src="js/index.js"></script>
         <script src="js/index.min.js"></script>
-        <script src="js/decoder.js"></script>
+
         <script>
+            var URL = window.URL;
+            var cvs = document.getElementById("canvas");
+            var ctx = cvs.getContext("2d");
+            var img = document.getElementById("img");
+            var res = document.getElementById("results");
+            var time = document.getElementById("time");
+          
             document.getElementById("cameraTakePicture").addEventListener ("click", cameraTake); 
+
 
             function cameraTake() {
                 //setts options for photo
@@ -35,10 +42,11 @@
                 navigator.camera.getPicture(onSuccess, onFail, options);
 
                 function onSuccess(imageURL) { //onece piture is taken succsesfully
-                    var image = document.getElementById('img');
-                    image.src = imageURL;
 
-                    imageURL = decode();
+                    img.src = imageURL;
+                    
+                    img.onload=decode;
+
 
                     document.getElementById("cameraTakePicture").innerText="Success";
                 }
@@ -49,7 +57,34 @@
                 }
 
             }
-            
+
+            //de codeer
+            function decode() {
+                const startTime = Date.now();
+
+                cvs.width = img.width;
+                cvs.height = img.height;
+                ctx.drawImage(img, 0, 0);
+
+                output = document.getElementById("output");
+
+                try {
+                    const imageData = ctx.getImageData(0, 0, img.width, img.height);
+                    const decoded = iching.decode(imageData.data, imageData.width, imageData.height);
+                    output.removeAttribute("style");
+                    output.innerHTML = "Version: " + decoded.version + "<br>Size: " + decoded.size + "<br>Data: " + decoded.data;
+
+
+                    output.innerHTML = "<br>Data: " + decoded.data;
+                } catch (e) {
+                    output.setAttribute("style", "color:#FF0000;");
+                    output.innerHTML = e.message;
+                }
+
+                const endTime = Date.now();
+                time.innerHTML = "Time taken: " + (endTime - startTime) + "ms";
+            }
+
         </script>
     </body>
 </html>

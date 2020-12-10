@@ -41,18 +41,33 @@
 </head>
 <body>
     
-<h1>Game</h1>
+<h1>Avalible functions</h1>
 
 
 <div class="btn-group">
-  <button onclick="IntroSequence()">Start Game</button>
-  <button onclick="Debug()">Debug</button>
+  <button onclick="Board()">Board</button>
+  <button onclick="decodeCamera()">camera decode</button>
+  <button onclick="IntroSequence()">Intro sequence</button>
+  <button onclick="EmmasBoard()">Emma's board</button>
+  <button onclick="EmmasDecode()">Emma's decode</button>
 </div>
 
-<script>
 
-    function Debug(){
-        location.href = "debug.html";
+<script>
+    function Board(){
+        location.href = "Board.html";
+    }
+    
+    function decodeCamera(){
+      location.href = "CameraWithDecoder.html";
+    }
+
+    function EmmasBoard(){
+      location.href = "emmasBoard.html";
+    }
+
+    function EmmasDecode(){
+      location.href = "emmasDecode.html";
     }
 
     function IntroSequence(){

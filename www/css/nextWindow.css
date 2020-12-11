@@ -1,7 +1,8 @@
 #nextWindow {
     position: fixed;
-    top: 254px;
-    left: 40px;
+    bottom: 0px;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 #nextBlocks {
     position: relative;

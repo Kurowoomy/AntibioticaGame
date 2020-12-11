@@ -1,22 +1,39 @@
-// Skapa antal level-knappar enligt totalt antal doser
+var levelButtons = [];
+
+// Skapa och rita ut antal level-knappar enligt totalt antal doser
 function genButtons(doses) {
 
-    var levelButtons = [];
-
     for (let i = 1; i <= doses; i++) {
-
-        var menuButton = document.createElement("button");
-        menuButton.classList.add("levelButtonStyle");
-        menuButton.onclick = function() {
-            startLevel(i);
-        };
-
+        
+        var levelButton = document.createElement("button");
+        if(i <= localStorage.unlockedLevels) { // alla upplåsta blir klickbara
+            levelButton.classList.add("levelButtonStyle");
+            levelButton.onclick = function() {
+                startLevel(i);
+            };
+        }
+        else { // alla låsta blir gråa och oklickbara
+            levelButton.classList.add("lockedButton");
+            levelButton.onclick = function () {};
+        }
+        
         var buttonText = document.createTextNode(i.toString());
-        menuButton.appendChild(buttonText);
+        levelButton.appendChild(buttonText);
 
-        document.body.appendChild(menuButton);
-        levelButtons.push({btnObject: menuButton, levelIndex: i});
+        document.body.appendChild(levelButton);
+        levelButtons.push(levelButton);
+
     }
+
+}
+
+// ändra knappens css och onclick
+function unlockLevel(index) {
+
+    levelButtons[index - 1].classList.replace("lockedButton", "levelButtonStyle");
+    levelButtons[index - 1].onclick = function () {
+        startLevel(index);
+    };
 
 }
 

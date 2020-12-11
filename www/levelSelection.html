@@ -11,22 +11,31 @@
         <script src="js/levelSelection.js"></script>
         <script src="js/infoWindow.js"></script>
 
+        
         <script>
             genButtons(localStorage.dosesPerDay * localStorage.totalDays);
         </script>
 
 
         
-        <!-- LocalStorage testing -->
+        <!-- LocalStorage and locked levels testing -->
         <p></p>
-        <button id="testBtn" onclick="takeDose()">Take one dose</button>
+        <button onclick="takeDose()">Take one dose</button>
+        <button onclick="unlockLvl()">Unlock one level</button>
         <p id="doseText"></p>
+        <p id="unlockedLevelsText"></p>
         <script>
             function takeDose() {
                 localStorage.dosesTaken++;
                 document.getElementById("doseText").innerHTML="Doses taken: " + localStorage.dosesTaken;
             }
+            function unlockLvl() {
+                localStorage.unlockedLevels++;
+                unlockLevel(localStorage.unlockedLevels);
+                document.getElementById("unlockedLevelsText").innerHTML="Unlocked levels: " + localStorage.unlockedLevels;
+            }
             document.getElementById("doseText").innerHTML="Doses taken: " + localStorage.dosesTaken;
+            document.getElementById("unlockedLevelsText").innerHTML="Unlocked levels: " + localStorage.unlockedLevels;
         </script>
 
 

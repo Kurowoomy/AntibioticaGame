@@ -1,4 +1,5 @@
 var levelButtons = [];
+var doseTimes = [];
 
 // Skapa och rita ut antal level-knappar enligt totalt antal doser
 function genButtons(doses) {
@@ -35,6 +36,23 @@ function unlockLevel(index) {
         startLevel(index);
     };
 
+}
+
+// jämför nuvarande tid med inställda tiden för doserna, om ok unlockLevel()
+function checkTime() {
+    parsetttd();
+}
+
+// parse localStorage.timeToTakeDose
+function parsetttd() {
+    doseTimes = localStorage.timeToTakeDose.split(",");
+
+    var finalString = doseTimes[0];
+    for(var i = 1; i < doseTimes.length; i++) {
+        finalString += ", " + doseTimes[i];
+    }
+
+    document.getElementById("doseTimesText").innerHTML = "Your dose time(s): " + finalString;
 }
 
 // Uppdatera curretnLevelIndex och hoppa till board.html

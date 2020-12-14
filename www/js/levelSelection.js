@@ -59,7 +59,7 @@ function parsetttd() {
 function startLevel(levelIndex) {
 
     window.localStorage.currentLevelIndex = levelIndex;
-    window.location.href = "Board.html";
+    window.location.href = "CameraWithDecoder.html";
 
 }
 

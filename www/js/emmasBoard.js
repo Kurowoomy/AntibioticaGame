@@ -24,7 +24,11 @@ window.onload = function () {
     setFinishPoint();
     setVirusStartPoint();
     
+
     setInterval(moveVirusRandom, 2000);
+
+    setInterval(moveVirusRandom, 5000);
+
 }
 //var matrix = [][];
 var matrix = Array.from(Array(8), () => new Array(8));
@@ -198,6 +202,7 @@ function drawBoard() {
                         y < (40 + 20 * j))
                         {
                             //matrix[i][j] = !matrix[i][j];
+
                             //matrix[i][j] = 1;
                             //if (matrix[i][j] == 1) {
                                 //     if(nextBlocks[i].shape == "horizontal") 
@@ -306,6 +311,38 @@ function drawBoard() {
                             //     ctx.fill();
                             //     ctx.stroke();
                             // }
+
+                            matrix[i][j] = 1;
+                            if (matrix[i][j] == 1) {
+                                ctx.fillStyle = "#c82124"; //red
+                                ctx.beginPath();
+                                ctx.arc((30 + 20 * i), (30 + 20 * j), 5, 0, 2 * Math.PI);
+                                ctx.closePath();
+                                ctx.fill();
+                                ctx.stroke();
+                                ctx.beginPath();
+                                if (direction == 0){
+                                   
+                                    ctx.arc((30 + 20 * (i + 1)), (30 + 20 * j), 5, 0, 2 * Math.PI);
+                                    matrix[i + 1][j] = 1;
+                                }
+                                else {
+                                    ctx.arc((30 + 20 * (i)), (30 + 20 * (j + 1)), 5, 0, 2 * Math.PI);
+                                    matrix[i][j + 1] = 1;
+                                }
+                                ctx.closePath();
+                                ctx.fill();
+                                ctx.stroke();
+                            }
+                            else {
+                                ctx.fillStyle = "#3370d4"; //blue
+                                ctx.beginPath();
+                                ctx.arc((30 + 20 * i), (30 + 20 * j), 5, 0, 2 * Math.PI);
+                                ctx.closePath();
+                                ctx.fill();
+                                ctx.stroke();
+                            }
+
                         }
 
                 }
@@ -316,6 +353,7 @@ function drawBoard() {
 
     
 }
+
 
 
 function checkiftaken(pos,i,j){
@@ -331,7 +369,6 @@ function checkiftaken(pos,i,j){
 
      return true;
 }
-
 
 var freePositions = [];
 

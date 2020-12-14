@@ -11,16 +11,38 @@
             color: #FFFFFF;
         }
     </style>
+    <link rel="stylesheet" href="css/nextWindow.css">
 </head>
-<body>
+<body">
     <!-- <p>Open image: <input type="file" id="inputImage" /></p> -->
     <!-- <p id="output"></p> -->
     <!-- <p id="time"></p> -->
-    <canvas id="canvas" style="margin:12px;" width="300" height="300"></canvas>
+    <canvas id="canvas" style="margin:12px;" width="600" height="900"></canvas>
+
     <!-- <img id="img" hidden> -->
     <!-- <div class="footer" id="results">Move mouse over image to show mouse location and pixel value and alpha</div> -->
 
     <!-- <script src="js/index.min.js"></script> -->
     <script src="js/Board.js"></script>
+    <script src="js/nextWindow.js"></script>
+
+    <div id="nextWindow">
+        <div id="nextText">Next:</div>
+        <div id="nextBlocks"></div>
+        <button id="nextButton" onclick="updateNextWindow()">New block</button>
+    </div>
+
+    <script>
+        genBlocks();
+    </script>
+
+
+
+
+
+
+
+
+
 </body>
 </html>

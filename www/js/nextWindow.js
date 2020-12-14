@@ -4,8 +4,10 @@ var nextBlocks = []; // index 0 är nuvarande block-objekt som man kan lägga ut
 // block-objekt
 class Block {
     constructor() {
+        this.test;
         this.shape; // "horizontal" eller "vertical"
-        this.property; // "block" eller "erase"
+        this.blockornot; // "block" eller "erase"
+        
     }
 }
 
@@ -13,6 +15,28 @@ function createRandomBlock() {
     var newBlock = new Block();
 
     // om math.random() < 0.5, skapa horizontal
+
+    if(Math.random() < 0.5) {
+        newBlock.shape = "horizontal";
+        newBlock.test = "horizontal";
+    }
+    else 
+        newBlock.shape = "vertical";
+        newBlock.test = "vertical;"
+    }
+    
+    if(Math.random() < 0.5) 
+        newBlock.blockornot = "block";
+    else 
+        newBlock.blockornot = "erase";
+
+   
+
+    // newBlock.property = "block";
+    // newBlock.shape = "horizontal";
+    // newBlock.test = "test";
+    
+
     if(Math.random() < 0.5)
         newBlock.shape = "horizontal";
     else 
@@ -22,6 +46,7 @@ function createRandomBlock() {
         newBlock.property = "block";
     else 
         newBlock.property = "erase";
+
 
     return newBlock;
 }
@@ -59,6 +84,9 @@ function genBlocks() {
         else
             block.classList.add("vertical");
 
+
+        if(nextBlocks[i].blockornot == "block")
+
         if(nextBlocks[i].property == "block")
             block.classList.add("block");
         else
@@ -93,7 +121,11 @@ function updateNextWindow() {
     else
         block.classList.add("vertical");
 
+
+    if(nextBlocks[nextBlocks.length - 1].blockornot == "block")
+
     if(nextBlocks[nextBlocks.length - 1].property == "block")
+
         block.classList.add("block");
     else
         block.classList.add("erase");

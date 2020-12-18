@@ -33,18 +33,19 @@ window.onload = function () {
     el.addEventListener("touchend", handleEnd, false);
     el.addEventListener("touchcancel", handleCancel, false);
     el.addEventListener("touchmove", handleMove, false);
-    //el.addEventListener('click', handleClick,false);
+    el.addEventListener('click', handleClickEvent,false);
 
     // var inputImage = document.getElementById("inputImage");
     // inputImage.addEventListener("input", handleImageFiles, false);
     resetVariables();
     drawBoard();
+    randomFinishPoint();
     setFinishPoint();
     setVirusStartPoint();
    
     currentStartTimeInmsec = currentStartTime.getTime();
     setInterval(moveVirusRandom, 2000);
-    //setInterval(elpasedTime, 1000);
+    setInterval(elpasedTime, 1000);
 }
 //var matrix = [][];
 var matrix = Array.from(Array(8), () => new Array(8));
@@ -54,18 +55,17 @@ var lastTouchDistance = 0.0;
 var lastTouch = 0.0;
 var ongoingTouches = [];
 
-function handleClick(xcurrent,ycurrent) {
-   
-        // Control that click event occurred within position of button 
+function handleClickEvent(event) {
+           // Control that click event occurred within position of button 
         // NOTE: This assumes canvas is positioned at top left corner  
             
             //alert("canvas click");
     
             let brect = canvas.getBoundingClientRect();
-            //let bX = event.clientX - brect.left;
-            //let bY = event.clientY - brect.top;
-            let bX = xcurrent - brect.left;
-            let bY = ycurrent - brect.top;
+            let bX = event.clientX - brect.left;
+            let bY = event.clientY - brect.top;
+            //let bX = xcurrent - brect.left;
+            //let bY = ycurrent - brect.top;
     
             // if (bX > buttonX && bX < buttonX + buttonW && bY > buttonY && bY < buttonY + buttonH) {
             //     if (direction == 1) {
@@ -94,9 +94,11 @@ function handleClick(xcurrent,ycurrent) {
             //{
                 let rect = canvas.getBoundingClientRect()
                 
-                let x = xcurrent - rect.left;
-                let y = ycurrent - rect.top;
-                
+                let x = event.pageX - rect.left;
+                let y = event.pageY - rect.top;
+                //let x = xcurrent;
+               // let y = ycurrent;
+
                 alloedToClick = 0;
                 //alert("X =  " + x + " " +  "Y = " + y); 
     
@@ -108,7 +110,8 @@ function handleClick(xcurrent,ycurrent) {
                             y > (20 + totalBoardSizeY * j) &&
                             y < (40 + totalBoardSizeY * j))
                             {
-    
+                                //alert("Inside if");
+
                                 blockTaken = false;
     
                                 if (nextBlocks[0].shape == "horizontal") {
@@ -235,6 +238,190 @@ function handleClick(xcurrent,ycurrent) {
 
 }
 
+function handleClick(xcurrent,ycurrent) {
+   
+        // Control that click event occurred within position of button 
+        // NOTE: This assumes canvas is positioned at top left corner  
+            
+            //alert("canvas click");
+    
+            let brect = canvas.getBoundingClientRect();
+            //let bX = event.clientX - brect.left;
+            //let bY = event.clientY - brect.top;
+            let bX = xcurrent - brect.left;
+            let bY = ycurrent - brect.top;
+    
+            // if (bX > buttonX && bX < buttonX + buttonW && bY > buttonY && bY < buttonY + buttonH) {
+            //     if (direction == 1) {
+            //         direction = 0;
+    
+            //         ctx.fillStyle = 'green'; 
+            //         ctx.fillRect(buttonX, buttonY, buttonW, buttonH); 
+            //         ctx.fillStyle = "Black";
+            //         ctx.font = "15px Arial";
+            //         ctx.fillText("Horizont", 73, 220);
+            //     }
+            //     else { 
+            //         direction = 1;
+    
+            //         ctx.fillStyle = 'green'; 
+            //         ctx.fillRect(buttonX, buttonY, buttonW, buttonH); 
+            //         ctx.fillStyle = "Black";
+            //         ctx.font = "15px Arial";
+            //         ctx.fillText("Vertical", 75, 220);
+            //     }
+    
+            // }
+    
+    
+            //if (alloedToClick == 1)
+            //{
+                let rect = canvas.getBoundingClientRect()
+                
+                let x = xcurrent - rect.left;
+                let y = ycurrent - rect.top;
+                //let x = xcurrent;
+                //let y = ycurrent;
+
+                alloedToClick = 0;
+                //alert("X =  " + x + " " +  "Y = " + y); 
+    
+                for (var i = 0; i < 8; i++) {
+                    for (var j = 0 ; j < 8; j++) {
+    
+                        if (x > (20 + totalBoardSizeX * i) &&
+                            x < (20 + totalBoardSizeX + (totalBoardSizeX * i)) &&
+                            y > (20 + totalBoardSizeY * j) &&
+                            y < (20 + totalBoardSizeY + (totalBoardSizeY * j)))
+                            {
+                                //alert("Inside if");
+
+                                blockTaken = false;
+    
+                                if (nextBlocks[0].shape == "horizontal") {
+                                    if (nextBlocks[0].blockornot == "erase") {
+                                        if ((i + 1) >= bWidth) {
+                                            alert("Utanför spelplan");
+                                            blockTaken = true;
+                                        }
+                                        else {
+                                            if (checkiftaken("horizontal", i,j) == false) {
+    
+                                                // ctx.fillStyle = "#c82124"; //red
+                                                // ctx.beginPath();
+                                                // ctx.arc((30 + totalBoardSizeX * i), (30 + totalBoardSizeY * j), 5, 0, 2 * Math.PI);
+                                                // ctx.arc((30 + totalBoardSizeX * (i + 1)), (30 + totalBoardSizeY * j), 5, 0, 2 * Math.PI);
+                                                 matrix[i + 1][j] = 1;
+                                                 matrix[i][j] = 1;
+                                                // ctx.closePath();
+                                                // ctx.fill();
+                                                //ctx.stroke();
+                                            }
+                                            else {
+                                                alert("Ruta redan tagen");
+                                                blockTaken = true;
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+                                if (nextBlocks[0].shape == "horizontal") {
+                                    if ( nextBlocks[0].blockornot == "block") {
+                                        // ctx.fillStyle = "#ffffff";
+                                        // ctx.beginPath();
+                                        // ctx.arc((30 + totalBoardSizeX * i), (30 + totalBoardSizeY * j),6, 0, 2 * Math.PI);
+                                        // ctx.arc((30 + totalBoardSizeX * (i + 1)), (30 + totalBoardSizeY * j), 6, 0, 2 * Math.PI);
+                                         matrix[i + 1][j] = 0;
+                                         matrix[i][j] = 0;
+                                        // ctx.closePath();
+                                        // ctx.fill();
+                                        //ctx.stroke();
+                                    }
+                                }
+                                if (nextBlocks[0].shape == "vertical") {
+                                    if (nextBlocks[0].blockornot == "erase") {
+                                        if ((j + 1) >= bHeight) {
+                                            alert("Utanför spelplan");
+                                            blockTaken = true;
+                                        }
+                                        else {
+                                            if (checkiftaken("vertical", i, j) == false) {
+                                                // ctx.fillStyle = "#c82124"; //red
+                                                // ctx.beginPath();
+                                                // ctx.arc((30 + totalBoardSizeX * i), (30 + totalBoardSizeY * j), 5, 0, 2 * Math.PI);
+                                                // ctx.arc((30 + totalBoardSizeX * (i)), (30 + totalBoardSizeY * (j + 1)), 5, 0, 2 * Math.PI);
+                                                 matrix[i][j + 1] = 1;
+                                                 matrix[i][j] = 1;
+                                                // ctx.closePath();
+                                                // ctx.fill();
+                                                //ctx.stroke();
+                                            }
+                                            else {
+                                                alert("Ruta redan tagen");
+                                                blockTaken = true;
+                                            }
+                                        }
+                                    }
+                                }
+                                if (nextBlocks[0].shape == "vertical") {
+                                    if (nextBlocks[0].blockornot == "block") {
+                                        // ctx.fillStyle = "#ffffff"; 
+                                        // ctx.beginPath();
+                                        // ctx.arc((30 + totalBoardSizeX * i), (30 + totalBoardSizeY * j), 6, 0, 2 * Math.PI);
+                                        // ctx.arc((30 + totalBoardSizeX * (i)), (30 + totalBoardSizeY * (j + 1)), 6, 0, 2 * Math.PI);
+                                         matrix[i][j + 1] = 0;
+                                         matrix[i][j] = 0;
+                                        // ctx.closePath();
+                                        // ctx.fill();
+                                        //ctx.stroke();
+                                    }
+                                } 
+    
+                                if (blockTaken == false){
+                                    updateNextWindow();
+                                }
+    
+                                // //matrix[i][j] = !matrix[i][j];
+                                // matrix[i][j] = 1;
+                                // if (matrix[i][j] == 1) {
+                                //     ctx.fillStyle = "#c82124"; //red
+                                //     ctx.beginPath();
+                                //     ctx.arc((30 + 20 * i), (30 + 20 * j), 5, 0, 2 * Math.PI);
+                                //     ctx.closePath();
+                                //     ctx.fill();
+                                //     ctx.stroke();
+                                //     ctx.beginPath();
+                                //     if (direction == 0){
+                                       
+                                //         ctx.arc((30 + 20 * (i + 1)), (30 + 20 * j), 5, 0, 2 * Math.PI);
+                                //         matrix[i + 1][j] = 1;
+                                //     }
+                                //     else {
+                                //         ctx.arc((30 + 20 * (i)), (30 + 20 * (j + 1)), 5, 0, 2 * Math.PI);
+                                //         matrix[i][j + 1] = 1;
+                                //     }
+                                //     ctx.closePath();
+                                //     ctx.fill();
+                                //     ctx.stroke();
+                                // }
+                                // else {
+                                //     ctx.fillStyle = "#3370d4"; //blue
+                                //     ctx.beginPath();
+                                //     ctx.arc((30 + 20 * i), (30 + 20 * j), 5, 0, 2 * Math.PI);
+                                //     ctx.closePath();
+                                //     ctx.fill();
+                                //     ctx.stroke();
+                                // }
+                            }
+    
+                    }
+                }
+            //}
+           // moveVirus();
+   
+
+}
+
 function handleStart(evt) {
     evt.preventDefault();
     console.log("touchstart.");
@@ -303,17 +490,17 @@ function handleStart(evt) {
 
         if (touchDistance > lastTouch) {
             //alert("touchDistance > lastTouch");
-            if (totalBoardSizeX < 30) {
-                        totalBoardSizeX += 1;
-                        totalBoardSizeY += 1;
+            if (totalBoardSizeX < 50) {
+                        totalBoardSizeX += 0.5;
+                        totalBoardSizeY += 0.5;
             }
         }
 
         if (touchDistance < lastTouch) {
             //alert("touchDistance < lastTouch");
             if (totalBoardSizeX > 10) {
-                        totalBoardSizeX -= 1;
-                        totalBoardSizeY -= 1;
+                        totalBoardSizeX -= 0.5;
+                        totalBoardSizeY -= 0.5;
             }
         }
         // touchDistance = Math.sqrt(Math.pow(dX,2) + Math.pow(dY,2));
@@ -352,6 +539,10 @@ function handleStart(evt) {
       }
     }
     drawBoard();
+    drawTaken();
+    //alert("SetFinishPoint");
+    setFinishPoint();
+
     lastTouchDistance = touchDistance;
     lastTouch = touchDistance;
   }
@@ -390,8 +581,14 @@ function handleStart(evt) {
         //alert(dist);
 
         if (Math.abs(curposx - beginningOfTouch) < 10) {
+
+            //alert("handleEnd");
+
             //alert("IF");
+
             handleClick(curposx, curposy);
+            drawTaken();
+            setFinishPoint();
         }
     }
 
@@ -538,10 +735,10 @@ function elpasedTime(){
     msec -= ss * 1000;
 
     ctx.fillStyle = 'White'; 
-    ctx.fillRect(20, 180, 40, 20); 
+    ctx.fillRect(20, 500, 40, 20); 
     ctx.fillStyle = "Black";
     ctx.font = "15px Arial";
-    ctx.fillText(mm + ":" + ss, 20, 200);
+    ctx.fillText(mm + ":" + ss, 20, 520);
 
 }
 
@@ -550,7 +747,7 @@ function moveVirusRandom(){
     alloedToClick = 1;
 }
 
-function setFinishPoint() {
+function randomFinishPoint() {
     randomCell = Math.floor(Math.random() * Math.floor(4));
    
     if (randomCell == 0) {
@@ -570,10 +767,14 @@ function setFinishPoint() {
         finishPosY = 0;
     }
 
+}
+
+function setFinishPoint() {
+ 
 
     ctx.fillStyle = "#f5f402"; 
     ctx.beginPath();
-    ctx.arc((30 + 20 * finishPosX), (30 + 20 * finishPosY), 5, 0, 2 * Math.PI);
+    ctx.arc(((totalBoardSizeX / 2) + (totalBoardSizeX * finishPosX) + 20), ((totalBoardSizeY / 2) + (totalBoardSizeY * finishPosY) + 20), 5, 0, 2 * Math.PI);
     ctx.closePath();
     ctx.fill();
     ctx.stroke();
@@ -627,10 +828,13 @@ function drawTaken() {
             if (matrix[x][y] == 1) {
                 ctx.fillStyle = "#c82124"; //red
                 ctx.beginPath();
-                ctx.arc((30 + totalBoardSizeX * i), (30 + totalBoardSizeY * j), 5, 0, 2 * Math.PI);
-                ctx.arc((30 + totalBoardSizeX * (i + 1)), (30 + totalBoardSizeY * j), 5, 0, 2 * Math.PI);
+                ctx.arc(((totalBoardSizeX / 2) + (totalBoardSizeX * x) + 20), ((totalBoardSizeY / 2) + (totalBoardSizeY * y) + 20), 5, 0, 2 * Math.PI);
+                //ctx.arc(((totalBoardSizeX * x) + 20), ((totalBoardSizeY / 2) + (UtotalBoardSizeY * y) + 20), 5, 0, 2 * Math.PI);
+                
+                //ctx.arc((30 + totalBoardSizeX * (i + 1)), (30 + totalBoardSizeY * j), 5, 0, 2 * Math.PI);
                 ctx.closePath();
                 ctx.fill();
+                ctx.stroke();
             }
         }
     }
@@ -706,7 +910,7 @@ function moveVirus() {
     
     
     ctx.beginPath();
-    ctx.arc((30 + totalBoardSizeX * currentPos[0]), (30 + totalBoardSizeY * currentPos[1]), 6, 0, 2 * Math.PI);
+    ctx.arc((20 + (totalBoardSizeX * currentPos[0]) + (totalBoardSizeX / 2)), (20 + (totalBoardSizeY * currentPos[1]) + (totalBoardSizeY / 2)), 6, 0, 2 * Math.PI);
    
     ctx.fillStyle = "#ffffff"; 
     ctx.fill();
@@ -901,7 +1105,8 @@ function moveVirus() {
 
     ctx.fillStyle = "#111111"; 
     ctx.beginPath();
-    ctx.arc((30 + totalBoardSizeX * currentPos[0]), (30 + totalBoardSizeY * currentPos[1]), 5, 0, 2 * Math.PI);
+    ctx.arc((20 + (totalBoardSizeX * currentPos[0]) + (totalBoardSizeX / 2)), (20 + (totalBoardSizeY * currentPos[1]) + (totalBoardSizeY / 2)), 6, 0, 2 * Math.PI);
+   
     ctx.closePath();
     ctx.fill();
     ctx.stroke();

@@ -21,7 +21,7 @@ function setupPage() {
 
         // time input scroll
         var timePicker = document.createElement("input");
-        timePicker.type = "time"; // kanske kan ge dessa varsitt id? idk
+        timePicker.type = "time";
         dpdDiv.appendChild(timePicker);
 
         contentSection.appendChild(dpdDiv);
@@ -34,11 +34,16 @@ function saveTime() {
     var contentSection = document.getElementById("contentSection");
     var timeInputs = contentSection.getElementsByTagName("input");
 
-    var tttdArray = [];
+    var doseTimes = [];
     for(var i = 0; i < timeInputs.length; i++) {
-        tttdArray.push(timeInputs[i].value);
+        doseTimes.push(timeInputs[i].value);
     }
-    localStorage.timeToTakeDose = tttdArray;
+    localStorage.doseTimes = doseTimes;
+
+    var date = new Date();
+    // firstDay bör egentligen uppdateras efter användaren startat sin första level
+    // så användaren kan ta sin första dos/börja spela när hen vill
+    window.localStorage.firstDay = date;
     
     document.location.href = 'levelSelection.html';
 }

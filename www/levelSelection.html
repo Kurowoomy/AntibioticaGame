@@ -18,35 +18,25 @@
 
 
         
-        <!-- LocalStorage and locked levels testing -->
+        <!-- Unlock levels by clicking button or updating page -->
         <p></p>
-        <!-- <button onclick="takeDose()">Take one dose</button> -->
         <button onclick="unlockLvl()">Unlock one level</button>
-        <button onclick="moveTime()">Move time forward 1 h</button>
-        <p id="doseText"></p>
         <p id="unlockedLevelsText"></p>
-        <p id="currentTimeText"></p>
         <p id="doseTimesText"></p>
         <script>
-            // function takeDose() {
-            //     localStorage.dosesTaken++;
-            //     document.getElementById("doseText").innerHTML="Doses taken: " + localStorage.dosesTaken;
-            // }
+            
             function unlockLvl() {
                 localStorage.unlockedLevels++;
                 unlockLevel(localStorage.unlockedLevels);
                 document.getElementById("unlockedLevelsText").innerHTML="Unlocked levels: " + localStorage.unlockedLevels;
             }
-            var date = new Date();
-            var hours = date.getHours();
-            function moveTime() {
-                hours++;
-                document.getElementById("currentTimeText").innerHTML="Current hour: " + hours;
-            }
-            // document.getElementById("doseText").innerHTML="Doses taken: " + localStorage.dosesTaken;
             document.getElementById("unlockedLevelsText").innerHTML="Unlocked levels: " + localStorage.unlockedLevels;
-            document.getElementById("currentTimeText").innerHTML="Current hour: " + hours;
-            parsetttd();
+            
+            parseDoseTimes();
+            if(localStorage.unlockedLevels < localStorage.currentDay * localStorage.dosesPerDay) {
+                checkTime(); // jämför tid för att kolla om nya levlar kan låsas upp
+            }
+
         </script>
 
 
@@ -60,7 +50,7 @@
             <div class="collectionTab" id="infoTab">
 
                 <div class="collectionTitle" id="infoTitle">Antibiotica Information</div>
-                <div class="collectionProgress" id="infoProgress">1/5</div>
+                <div class="collectionProgress" id="infoProgress">2/5</div>
 
                 <div class="collectionItems" id="infoItems"></div>
                 <!-- Lägg till infoknappar här -->

@@ -581,7 +581,11 @@ function handleStart(evt) {
         //alert(dist);
 
         if (Math.abs(curposx - beginningOfTouch) < 10) {
+
             //alert("handleEnd");
+
+            //alert("IF");
+
             handleClick(curposx, curposy);
             drawTaken();
             setFinishPoint();

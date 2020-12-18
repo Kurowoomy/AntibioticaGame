@@ -1,7 +1,8 @@
 var nextBlocks = []; // index 0 är nuvarande block-objekt som man kan lägga ut
+// Kalla på updateNextWindow() när ett block har lagts ut/använts
 
 // block-objekt
-class block {
+class Block {
     constructor() {
         this.test;
         this.shape; // "horizontal" eller "vertical"
@@ -11,7 +12,7 @@ class block {
 }
 
 function createRandomBlock() {
-    var newBlock = new block();
+    var newBlock = new Block();
 
     // om math.random() < 0.5, skapa horizontal
     if(Math.random() < 0.5) {
@@ -39,13 +40,28 @@ function createRandomBlock() {
 
 function genBlocks() {
     // create the actual blocks in the nextBlocks array
-    for(var i = 0; i < 4; i++) {
+    // make sure first block always is "block"
+    var firstBlock = new Block();
+    firstBlock.property = "block";
+
+    if(Math.random() < 0.5)
+        firstBlock.shape = "horizontal";
+    else 
+        firstBlock.shape = "vertical";
+
+    nextBlocks.push(firstBlock);
+
+    // the remaining 3 blocks
+    for(var i = 1; i < 4; i++) {
         nextBlocks.push(createRandomBlock());
     }
 
     // draw by creating elements in html
     var nextWindow = document.getElementById("nextBlocks");
     for(var i = 0; i < nextBlocks.length; i++) {
+
+        var blockContainer = document.createElement("div");
+        blockContainer.classList.add("nextBlockContainer");
 
         var block = document.createElement("div");
         block.classList.add("nextBlock");
@@ -60,7 +76,8 @@ function genBlocks() {
         else
             block.classList.add("erase");
 
-        nextWindow.appendChild(block);
+        blockContainer.appendChild(block);
+        nextWindow.appendChild(blockContainer);
 
     }
 }
@@ -72,11 +89,14 @@ function updateNextWindow() {
     // add new block to last position of array
     nextBlocks.push(createRandomBlock());
 
-    // draw by creating element in html
+    // draw -----------------------------------------------------------------------------
     // remove first block in html
     var nextWindow = document.getElementById("nextBlocks");
     nextWindow.firstChild.remove();
     // draw the new block by adding it as child to the nextBlocks element
+    var blockContainer = document.createElement("div");
+    blockContainer.classList.add("nextBlockContainer");
+
     var block = document.createElement("div");
     block.classList.add("nextBlock");
 
@@ -90,5 +110,7 @@ function updateNextWindow() {
     else
         block.classList.add("erase");
 
-    nextWindow.appendChild(block);
+    blockContainer.appendChild(block);
+    nextWindow.appendChild(blockContainer);
+    // ----------------------------------------------------------------------------------
 }

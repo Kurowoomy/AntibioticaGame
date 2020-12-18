@@ -2,6 +2,9 @@ body {
     background-color: rgb(207, 249, 255);
 }
 
+.levelButtonDiv {
+    display: inline-block;
+}
 .levelButtonStyle {
     background-color: lightgreen;
     width: 40px;
@@ -64,4 +67,14 @@ body {
     position: absolute;
     top: 60%;
     transform: translate(0%, -50%);
+}
+
+.lockedButton {
+    background-color: gray;
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    border: none;
+    border-radius: 50%;
+    outline: none;
 }

@@ -59,7 +59,7 @@ function handleClick(xcurrent,ycurrent) {
         // Control that click event occurred within position of button 
         // NOTE: This assumes canvas is positioned at top left corner  
             
-            alert("canvas click");
+            //alert("canvas click");
     
             let brect = canvas.getBoundingClientRect();
             //let bX = event.clientX - brect.left;
@@ -387,10 +387,10 @@ function handleStart(evt) {
         //alert("handelEnd");
 
         var dist = Math.abs(curposx - beginningOfTouch);
-        alert(dist);
+        //alert(dist);
 
         if (Math.abs(curposx - beginningOfTouch) < 10) {
-            alert("IF");
+            //alert("IF");
             handleClick(curposx, curposy);
         }
     }

@@ -54,9 +54,16 @@
     function Debug(){
         location.href = "debug.html";
     }
-
     function IntroSequence(){
       location.href = "introSequence.html";
+    }
+    function IntroSequence2(){
+      if(localStorage.persNr == null){
+        location.href = "CameraWithDecoder"
+      }
+      else{
+        location.href = "introSequence.html";
+      }
     }
 </script>
 

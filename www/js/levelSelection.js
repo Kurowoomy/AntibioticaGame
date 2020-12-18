@@ -70,33 +70,12 @@ window.onclick = function(event) {
     // event.target är objektet man klickade på
     if (event.target != infoTab && event.target != infoTabButton && event.target != infoTitle &&
         event.target != infoProgress && event.target != infoItems) {
-            infoTab.style.display = "none";
+        infoTab.style.display = "none";
     }
         
 }
     
     
-    
-// --------- WORK IN PROGRESS ---------------------------------------------------------------------
-window.localStorage.doses = "";
-// jämför nuvarande tid med inställda tiden för doserna, om ok unlockLevel()
-function checkTime() { // sker t.ex. när sidan laddas
-    parseDoseTimes();
-    
-    // 1. jämför dag ifall man behöver låsa upp för flera dagar
-    // localStorage.doses måste innehålla stringified version av:
-    // [1 : ["taken", "notTaken", "notTaken"], 2 : ["notTaken", "notTaken", "notTaken"]] 
-}
-
-// not used yet
-function dayDifference() {
-    // returns how many days it's been since app last checked time/unlocked levels
-    var days;
-    var date = new Date();
-    var firstDay = localStorage.firstDay.split("-")[0];
-    var firstMonth = localStorage.firstDay.split("-")[1];
-    return days;
-}
 
 // parse localStorage.doseTimes into doseTimes array
 function parseDoseTimes() {
@@ -109,4 +88,57 @@ function parseDoseTimes() {
 
     document.getElementById("doseTimesText").innerHTML = "Your dose time(s): " + finalString;
 }
-// -----------------------------------------------------------------------------------------------
+    
+// sker när sidan laddas
+function checkTime() {
+    // jämför dag ifall man behöver låsa upp för flera dagar
+    updateCurrentDay();
+    
+    // unlock levels from past days if needed
+    while(localStorage.currentDay * localStorage.dosesPerDay - localStorage.unlockedLevels
+        > localStorage.dosesPerDay) {
+        localStorage.unlockedLevels++;
+        unlockLevel(localStorage.unlockedLevels);
+    }
+        
+
+    // ------------ Unlock today's levels if possible --------------------------------------------
+    // jämför nuvarande tid med inställda tiden för doserna, om ok unlockLevel()
+    // if unlockedLevels % dosesPerDay == 0, 3 levlar kvar för dagen
+    var levelDifference = localStorage.unlockedLevels % localStorage.dosesPerDay;
+    var doseTimeIndex = levelDifference; // levelDifference needed in for loop
+
+    var currentDate = new Date();
+    currentDate.setSeconds(0, 0);
+    var doseTime = new Date();
+
+    for(var i = 0; i < localStorage.dosesPerDay - levelDifference; i++) {
+        var splitTime = doseTimes[doseTimeIndex].split(":");
+        doseTime.setHours(splitTime[0], splitTime[1], 0, 0);
+        
+        // if ok, unlock and doseTimeIndex++
+        if(currentDate - doseTime >= 0) { // compare milliseconds
+            doseTimeIndex++;
+            localStorage.unlockedLevels++;
+            unlockLevel(localStorage.unlockedLevels);
+            document.getElementById("unlockedLevelsText").innerHTML="Unlocked levels: " + localStorage.unlockedLevels;
+        }
+        // else, exit for loop, the later times will not match criteria if first one doesn't
+        else {
+            break;
+        }
+    }
+    
+}
+
+function updateCurrentDay() {
+    var firstDate = new Date(localStorage.firstDay.toString());
+    var currentDate = new Date();
+
+    firstDate.setHours(0, 0, 0, 0);
+    currentDate.setHours(0, 0, 0, 0);
+
+    var difference = (currentDate - firstDate) / (1000 * 3600 * 24); // milliseconds to days
+    // uppdatera currentDay (skillnad == 3 -> currentDay = skillnad + 1 -> currentDay == 4)
+    localStorage.currentDay = difference + 1;
+}

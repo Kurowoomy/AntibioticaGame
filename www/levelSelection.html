@@ -18,21 +18,25 @@
 
 
         
-        <!-- LocalStorage and locked levels testing -->
+        <!-- Unlock levels by clicking button or updating page -->
         <p></p>
         <button onclick="unlockLvl()">Unlock one level</button>
-        <p id="doseText"></p>
         <p id="unlockedLevelsText"></p>
-        <p id="currentTimeText"></p>
         <p id="doseTimesText"></p>
         <script>
+            
             function unlockLvl() {
                 localStorage.unlockedLevels++;
                 unlockLevel(localStorage.unlockedLevels);
                 document.getElementById("unlockedLevelsText").innerHTML="Unlocked levels: " + localStorage.unlockedLevels;
             }
             document.getElementById("unlockedLevelsText").innerHTML="Unlocked levels: " + localStorage.unlockedLevels;
-            checkTime(); // TODO: jämför tid för att kolla om nya levlar kan låsas upp
+            
+            parseDoseTimes();
+            if(localStorage.unlockedLevels < localStorage.currentDay * localStorage.dosesPerDay) {
+                checkTime(); // jämför tid för att kolla om nya levlar kan låsas upp
+            }
+
         </script>
 
 

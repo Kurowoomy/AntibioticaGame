@@ -20,7 +20,7 @@ function createRandomBlock() {
         newBlock.shape = "horizontal";
         newBlock.test = "horizontal";
     }
-    else 
+    else {
         newBlock.shape = "vertical";
         newBlock.test = "vertical;"
     }

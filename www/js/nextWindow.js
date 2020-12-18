@@ -14,12 +14,11 @@ function createRandomBlock() {
     var newBlock = new block();
 
     // om math.random() < 0.5, skapa horizontal
-
     if(Math.random() < 0.5) {
         newBlock.shape = "horizontal";
         newBlock.test = "horizontal";
     }
-    else 
+    else {
         newBlock.shape = "vertical";
         newBlock.test = "vertical;"
     }
@@ -35,18 +34,6 @@ function createRandomBlock() {
     // newBlock.shape = "horizontal";
     // newBlock.test = "test";
     
-
-    if(Math.random() < 0.5)
-        newBlock.shape = "horizontal";
-    else 
-        newBlock.shape = "vertical";
-    
-    if(Math.random() < 0.5) 
-        newBlock.property = "block";
-    else 
-        newBlock.property = "erase";
-
-
     return newBlock;
 }
 
@@ -68,10 +55,7 @@ function genBlocks() {
         else
             block.classList.add("vertical");
 
-
         if(nextBlocks[i].blockornot == "block")
-
-        if(nextBlocks[i].property == "block")
             block.classList.add("block");
         else
             block.classList.add("erase");
@@ -101,11 +85,7 @@ function updateNextWindow() {
     else
         block.classList.add("vertical");
 
-
     if(nextBlocks[nextBlocks.length - 1].blockornot == "block")
-
-    if(nextBlocks[nextBlocks.length - 1].property == "block")
-
         block.classList.add("block");
     else
         block.classList.add("erase");

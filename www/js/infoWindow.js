@@ -28,6 +28,7 @@ InfoWindow.prototype.setAndShowContent = function(infoText, imageSrc) {
     // Bild läggs endast till om det anges som parameter i createInfoButton
     if(imageSrc !== undefined) {
         this.image.src = imageSrc;
+        this.image.classList.add("infoImage");
         document.getElementById("window").appendChild(this.image);
     }
 

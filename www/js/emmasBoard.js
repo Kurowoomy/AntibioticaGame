@@ -24,7 +24,11 @@ window.onload = function () {
     setFinishPoint();
     setVirusStartPoint();
     
+
+    setInterval(moveVirusRandom, 2000);
+
     setInterval(moveVirusRandom, 5000);
+
 }
 //var matrix = [][];
 var matrix = Array.from(Array(8), () => new Array(8));
@@ -198,6 +202,116 @@ function drawBoard() {
                         y < (40 + 20 * j))
                         {
                             //matrix[i][j] = !matrix[i][j];
+
+                            //matrix[i][j] = 1;
+                            //if (matrix[i][j] == 1) {
+                                //     if(nextBlocks[i].shape == "horizontal") 
+                                //     block.classList.add("horizontal");
+                                // else
+                                //     block.classList.add("vertical");
+                        
+                                // if(nextBlocks[i].property == "block")
+                                //     block.classList.add("block");
+                                // else
+                                //     block.classList.add("erase");
+
+                                //updateNextWindow();
+
+                                if (nextBlocks[0].shape == "horizontal") {
+                                    if (nextBlocks[0].blockornot == "erase") {
+                                        if (checkiftaken("horizontal", i,j) == false) {
+                                            ctx.fillStyle = "#c82124"; //red
+                                            ctx.beginPath();
+                                            ctx.arc((30 + 20 * i), (30 + 20 * j), 5, 0, 2 * Math.PI);
+                                            ctx.arc((30 + 20 * (i + 1)), (30 + 20 * j), 5, 0, 2 * Math.PI);
+                                            matrix[i + 1][j] = 1;
+                                            matrix[i][j] = 1;
+                                            ctx.closePath();
+                                            ctx.fill();
+                                            //ctx.stroke();
+                                        }
+                                        else {
+                                            alert("Ruta redan tagen");
+                                        }
+                                    }
+                                    
+                                }
+                                if (nextBlocks[0].shape == "horizontal") {
+                                    if ( nextBlocks[0].blockornot == "block") {
+                                        ctx.fillStyle = "#ffffff";
+                                        ctx.beginPath();
+                                        ctx.arc((30 + 20 * i), (30 + 20 * j),6, 0, 2 * Math.PI);
+                                        ctx.arc((30 + 20 * (i + 1)), (30 + 20 * j), 6, 0, 2 * Math.PI);
+                                        matrix[i + 1][j] = 0;
+                                        matrix[i][j] = 0;
+                                        ctx.closePath();
+                                        ctx.fill();
+                                        //ctx.stroke();
+                                    }
+                                }
+                                if (nextBlocks[0].shape == "vertical") {
+                                    if (nextBlocks[0].blockornot == "erase") {
+                                        if (checkiftaken("vertical", i, j) == false) {
+                                            ctx.fillStyle = "#c82124"; //red
+                                            ctx.beginPath();
+                                            ctx.arc((30 + 20 * i), (30 + 20 * j), 5, 0, 2 * Math.PI);
+                                            ctx.arc((30 + 20 * (i)), (30 + 20 * (j + 1)), 5, 0, 2 * Math.PI);
+                                            matrix[i][j + 1] = 1;
+                                            matrix[i][j] = 1;
+                                            ctx.closePath();
+                                            ctx.fill();
+                                            //ctx.stroke();
+                                        }
+                                        else {
+                                            alert("Ruta redan tagen");
+                                        }
+                                    }
+                                }
+                                if (nextBlocks[0].shape == "vertical") {
+                                    if (nextBlocks[0].blockornot == "block") {
+                                        ctx.fillStyle = "#ffffff"; 
+                                        ctx.beginPath();
+                                        ctx.arc((30 + 20 * i), (30 + 20 * j), 6, 0, 2 * Math.PI);
+                                        ctx.arc((30 + 20 * (i)), (30 + 20 * (j + 1)), 6, 0, 2 * Math.PI);
+                                        matrix[i][j + 1] = 0;
+                                        matrix[i][j] = 0;
+                                        ctx.closePath();
+                                        ctx.fill();
+                                        //ctx.stroke();
+                                    }
+                                } 
+
+                                updateNextWindow();
+                            
+                                // ctx.fillStyle = "#c82124"; //red
+                                // ctx.beginPath();
+                                // ctx.arc((30 + 20 * i), (30 + 20 * j), 5, 0, 2 * Math.PI);
+                                // ctx.closePath();
+                                // ctx.fill();
+                                // ctx.stroke();
+                                // ctx.beginPath();
+                                // if (direction == 0){
+                                   
+                                //     ctx.arc((30 + 20 * (i + 1)), (30 + 20 * j), 5, 0, 2 * Math.PI);
+                                //     matrix[i + 1][j] = 1;
+                                // }
+                                // else {
+                                //     ctx.arc((30 + 20 * (i)), (30 + 20 * (j + 1)), 5, 0, 2 * Math.PI);
+                                //     matrix[i][j + 1] = 1;
+                                // }
+                                // ctx.closePath();
+                                // ctx.fill();
+                                // ctx.stroke();
+                            // }
+                            // else {
+                            //     ctx.fillStyle = "#3370d4"; //blue
+                            //     ctx.beginPath();
+                            //     ctx.arc((30 + 20 * i), (30 + 20 * j), 5, 0, 2 * Math.PI);
+                            //     ctx.closePath();
+                            //     ctx.fill();
+                            //     ctx.stroke();
+                            // }
+
                             matrix[i][j] = 1;
                             if (matrix[i][j] == 1) {
                                 ctx.fillStyle = "#c82124"; //red
@@ -228,6 +342,7 @@ function drawBoard() {
                                 ctx.fill();
                                 ctx.stroke();
                             }
+
                         }
 
                 }
@@ -238,6 +353,23 @@ function drawBoard() {
 
     
 }
+
+
+
+function checkiftaken(pos,i,j){
+
+     if (pos == "vertical") {
+         if (matrix[i][j] == 0 && matrix[i][j + 1] == 0)
+             return false;
+     }
+     else if (pos == "horizontal") {
+         if (matrix[i][j] == 0 && matrix[i + 1][j] == 0)
+             return false;
+     }
+
+     return true;
+}
+
 var freePositions = [];
 
 function moveVirus() {

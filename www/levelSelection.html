@@ -11,38 +11,48 @@
         <script src="js/levelSelection.js"></script>
         <script src="js/infoWindow.js"></script>
 
+        
         <script>
             genButtons(localStorage.dosesPerDay * localStorage.totalDays);
         </script>
 
 
         
-        <!-- LocalStorage testing -->
+        <!-- Unlock levels by clicking button or updating page -->
         <p></p>
-        <button id="testBtn" onclick="takeDose()">Take one dose</button>
-        <p id="doseText"></p>
+        <button onclick="unlockLvl()">Unlock one level</button>
+        <p id="unlockedLevelsText"></p>
+        <p id="doseTimesText"></p>
         <script>
-            function takeDose() {
-                localStorage.dosesTaken++;
-                document.getElementById("doseText").innerHTML="Doses taken: " + localStorage.dosesTaken;
+            
+            function unlockLvl() {
+                localStorage.unlockedLevels++;
+                unlockLevel(localStorage.unlockedLevels);
+                document.getElementById("unlockedLevelsText").innerHTML="Unlocked levels: " + localStorage.unlockedLevels;
             }
-            document.getElementById("doseText").innerHTML="Doses taken: " + localStorage.dosesTaken;
+            document.getElementById("unlockedLevelsText").innerHTML="Unlocked levels: " + localStorage.unlockedLevels;
+            
+            parseDoseTimes();
+            if(localStorage.unlockedLevels < localStorage.currentDay * localStorage.dosesPerDay) {
+                checkTime(); // jämför tid för att kolla om nya levlar kan låsas upp
+            }
+
         </script>
 
 
 
         <!-- Innehåller hittills endast informationsrutorna -->
-        <div class="menuTabs" id="menuTabs">
+        <div id="menuTabs">
 
             <!-- Allt har id bara för att fliken inte ska försvinna när man trycker på elementen inne i fliken -->
             <!-- *se window.onclick i levelSelection.js, finns säkert bättre sätt att göra detta på... -->
-            <button class="tabButton" id="infoTabButton" onclick="toggleCollectionTab('infoTab')">Info</button>
-            <div class="collectionTab" id="infoTab">
+            <button id="infoTabButton" onclick="toggleCollectionTab('infoTab')">Info</button>
+            <div id="infoTab">
 
-                <div class="collectionTitle" id="infoTitle">Antibiotica Information</div>
-                <div class="collectionProgress" id="infoProgress">1/5</div>
+                <div id="infoTitle">Unlocked Antibiotica Information</div>
+                <div id="infoProgress">2/5</div>
 
-                <div class="collectionItems" id="infoItems"></div>
+                <div id="infoItems"></div>
                 <!-- Lägg till infoknappar här -->
                 <script>
                     createInfoButton("infoItems", "1", exampleText, "resources/images/exampleImage.png");

@@ -1,13 +1,19 @@
 #nextWindow {
     position: fixed;
-    top: 254px;
+
+    top: 600px;
     left: 40px;
+
+    bottom: 0px;
+    left: 50%;
+    transform: translate(-50%, 0);
+
 }
 #nextBlocks {
     position: relative;
     background-color: gainsboro;
     height: 40px;
-    width: 160px;
+    width: auto;
 }
 #nextText {
     position: relative;
@@ -16,9 +22,17 @@
     position: relative;
 }
 
-.nextBlock {
-    margin: 5px;
+.nextBlockContainer {
+    position: relative;
     display: inline-block;
+    width: 40px;
+    height: 40px;
+}
+.nextBlock {
+    position: relative;
+    margin: auto;
+    top: 50%;
+    transform: translate(0, -50%);
 }
 .horizontal {
     width: 30px;
@@ -33,4 +47,8 @@
 }
 .erase {
     background-color: green;
+}
+
+.test {
+    background-color: darkgoldenrod;
 }

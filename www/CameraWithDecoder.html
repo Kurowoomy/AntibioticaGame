@@ -45,7 +45,7 @@
 
                     img.src = imageURL;
                     
-                    img.onload=decode;
+                    img.onload=decodeIching;
 
 
                     document.getElementById("cameraTakePicture").innerText="Success";
@@ -59,7 +59,7 @@
             }
 
             //de codeer
-            function decode() {
+            function decodeIching() {
                 const startTime = Date.now();
 
                 cvs.width = img.width;
@@ -75,8 +75,8 @@
                     output.innerHTML = "Version: " + decoded.version + "<br>Size: " + decoded.size + "<br>Data: " + decoded.data;
                     output.innerHTML = "<br>Data: " + decoded.data;
 
-                    decode(decoded.data);
 
+                    decode(decoded.data);
                 } catch (e) {
                     output.setAttribute("style", "color:#FF0000;");
                     output.innerHTML = e.message;
@@ -84,6 +84,30 @@
 
                 const endTime = Date.now();
                 time.innerHTML = "Time taken: " + (endTime - startTime) + "ms";
+            }
+            
+            function decode(data){
+                var persNr = localStorage.persNr;
+                var days = localStorage.totalDays;
+                var dosesDay = localStorage.dosesPerDay;
+                data.split(",");
+                if(persNr== data[0] && days == data[1] && dosesDay == data[2]){
+                    window.location.href = "Board.html"
+                }
+                else if(persNr==null && days == null && dosesDay ==null){
+                    localStorage.persNr =data[0];
+                    localStorage.totalDays=data[1];
+                    localStorage.dosesPerDay=data[2];
+                    //go to level select
+                }
+                else{
+                    alert("SOMETHING WENT WRONG")
+                }
+            }
+            function nextWindow(){
+                if(localStorage.persNr != null){
+                    
+                }
             }
 
             function decode(data){

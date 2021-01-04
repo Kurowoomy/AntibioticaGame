@@ -75,7 +75,8 @@
                     output.innerHTML = "Version: " + decoded.version + "<br>Size: " + decoded.size + "<br>Data: " + decoded.data;
                     output.innerHTML = "<br>Data: " + decoded.data;
 
-                    window.location.href = "emmasBoard.html"
+
+                    decode(decoded.data);
                 } catch (e) {
                     output.setAttribute("style", "color:#FF0000;");
                     output.innerHTML = e.message;
@@ -108,6 +109,32 @@
                     
                 }
             }
+
+            function decode(data){
+                alert("deodding begining: " + localStorage.dosesTaken);
+
+                var dataS=data.split(",");
+                
+                if(localStorage.persNr == data[0] && localStorage.totalDays == data[1] && localStorage.dosesPerDay == data[2]){
+                    alert("decoder -> board");
+
+                    window.location.href = "Board.html";
+                }
+                else if(localStorage.dosesTaken==0){
+                    alert("decoder -> timeInput");
+
+                    localStorage.setItem("dosesTaken","1");
+                    localStorage.persNr =data[0];
+                    localStorage.totalDays=data[1];
+                    localStorage.dosesPerDay=data[2];
+
+                    window.location.href ="timeInput.html";
+                }
+                else{
+                    alert("SOMETHING WENT WRONG");
+                }
+            }
+
 
         </script>
     </body>

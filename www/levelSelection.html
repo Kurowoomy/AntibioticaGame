@@ -42,17 +42,17 @@
 
 
         <!-- Innehåller hittills endast informationsrutorna -->
-        <div class="menuTabs" id="menuTabs">
+        <div id="menuTabs">
 
             <!-- Allt har id bara för att fliken inte ska försvinna när man trycker på elementen inne i fliken -->
             <!-- *se window.onclick i levelSelection.js, finns säkert bättre sätt att göra detta på... -->
-            <button class="tabButton" id="infoTabButton" onclick="toggleCollectionTab('infoTab')">Info</button>
-            <div class="collectionTab" id="infoTab">
+            <button id="infoTabButton" onclick="toggleCollectionTab('infoTab')">Info</button>
+            <div id="infoTab">
 
-                <div class="collectionTitle" id="infoTitle">Antibiotica Information</div>
-                <div class="collectionProgress" id="infoProgress">2/5</div>
+                <div id="infoTitle">Unlocked Antibiotica Information</div>
+                <div id="infoProgress">2/5</div>
 
-                <div class="collectionItems" id="infoItems"></div>
+                <div id="infoItems"></div>
                 <!-- Lägg till infoknappar här -->
                 <script>
                     createInfoButton("infoItems", "1", exampleText, "resources/images/exampleImage.png");

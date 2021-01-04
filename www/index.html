@@ -43,19 +43,32 @@
     
 <h1>Game</h1>
 
-
 <div class="btn-group">
   <button onclick="IntroSequence()">Start Game</button>
   <button onclick="Debug()">Debug</button>
 </div>
 
 <script>
-
+    //temp
+        window.localStorage.removeItem("persNr");
+        window.localStorage.removeItem("totalDays");
+        window.localStorage.removeItem("dosesPerDay");
+        window.localStorage.removeItem("dosestaken");
     function Debug(){
         location.href = "debug.html";
     }
+
     function IntroSequence(){
-      location.href = "introSequence.html";
+      try{
+        if(lokalstorege.dosesTaken!=0){
+          alert("index -> levels");
+          location.href = "levelSelection.html";
+          }
+      }
+      catch{
+        alert("index -> intro");
+        location.href = "introSequence.html";
+      }
     }
     function IntroSequence2(){
       if(localStorage.persNr == null){

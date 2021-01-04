@@ -13,17 +13,25 @@
         window.localStorage.unlockedLevels = 0;
         window.localStorage.currentLevelIndex = 1;
         window.localStorage.currentDay = 1;
-        window.localStorage.dosesTaken = 0;
+        
 
         // Static user data (read from I Ching code)
-        window.localStorage.persNr;
-        window.localStorage.totalDays;
-        window.localStorage.dosesPerDay;
+
+        window.localStorage.setItem("persNr", null);
+        window.localStorage.setItem("totalDays", null);
+        window.localStorage.setItem("dosesPerDay", null);
+        window.localStorage.setItem("dosesTaken", 0);
+
+
         
     </script>
 
     <p></p>
-    <button onclick="document.location.href='timeInput.html'">To time input</button>
+
+    <script>
+        alert("intro -> decoder");
+        location.href = "CameraWithDecoder.html";
+    </script>
 
 </body>
 

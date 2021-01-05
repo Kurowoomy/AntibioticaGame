@@ -6,7 +6,7 @@ class Block {
     constructor() {
         this.test;
         this.shape; // "horizontal" eller "vertical"
-        this.blockornot; // "block" eller "erase"
+        this.blockornot; // "block" eller "erase" ("erase" is unused)
         
     }
 }
@@ -24,10 +24,7 @@ function createRandomBlock() {
         newBlock.test = "vertical;"
     }
     
-    if(Math.random() < 0.5) 
-        newBlock.blockornot = "block";
-    else 
-        newBlock.blockornot = "erase";
+    newBlock.blockornot = "block";
 
    
 
@@ -70,11 +67,8 @@ function genBlocks() {
             block.classList.add("horizontal");
         else
             block.classList.add("vertical");
-
-        if(nextBlocks[i].blockornot == "block")
-            block.classList.add("block");
-        else
-            block.classList.add("erase");
+        
+        block.classList.add("block");
 
         blockContainer.appendChild(block);
         nextWindow.appendChild(blockContainer);
@@ -105,10 +99,7 @@ function updateNextWindow() {
     else
         block.classList.add("vertical");
 
-    if(nextBlocks[nextBlocks.length - 1].blockornot == "block")
-        block.classList.add("block");
-    else
-        block.classList.add("erase");
+    block.classList.add("block");
 
     blockContainer.appendChild(block);
     nextWindow.appendChild(blockContainer);

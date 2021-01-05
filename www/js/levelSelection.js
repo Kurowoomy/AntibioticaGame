@@ -121,7 +121,6 @@ function checkTime() {
             doseTimeIndex++;
             localStorage.unlockedLevels++;
             unlockLevel(localStorage.unlockedLevels);
-            document.getElementById("unlockedLevelsText").innerHTML="Unlocked levels: " + localStorage.unlockedLevels;
         }
         // else, exit for loop, the later times will not match criteria if first one doesn't
         else {

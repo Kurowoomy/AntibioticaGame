@@ -44,37 +44,28 @@
 <h1>Game</h1>
 
 <div class="btn-group">
-  <button onclick="IntroSequence()">Start Game</button>
-  <button onclick="Debug()">Debug</button>
+  <button onclick="IntroSequence2()">New Game</button>
+  <button onclick="IntroSequence()">Continue Game</button>
+  <p id ="pNr"></p>
 </div>
 
 <script>
-    //temp
+    document.getElementById("pNr").innerHTML = "PNr: "+localStorage.persNr;
+    function IntroSequence2(){
         window.localStorage.removeItem("persNr");
         window.localStorage.removeItem("totalDays");
         window.localStorage.removeItem("dosesPerDay");
         window.localStorage.removeItem("dosestaken");
-    function Debug(){
-        location.href = "debug.html";
-    }
 
+        IntroSequence();
+    }
     function IntroSequence(){
       try{
-        if(lokalstorege.dosesTaken!=0){
-          alert("index -> levels");
+        if(localStorage.dosesTaken!=0){
           location.href = "levelSelection.html";
           }
       }
       catch{
-        alert("index -> intro");
-        location.href = "introSequence.html";
-      }
-    }
-    function IntroSequence2(){
-      if(localStorage.persNr == null){
-        location.href = "CameraWithDecoder"
-      }
-      else{
         location.href = "introSequence.html";
       }
     }

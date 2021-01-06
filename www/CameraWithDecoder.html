@@ -85,48 +85,20 @@
                 const endTime = Date.now();
                 time.innerHTML = "Time taken: " + (endTime - startTime) + "ms";
             }
-            
-            function decode(data){
-                var persNr = localStorage.persNr;
-                var days = localStorage.totalDays;
-                var dosesDay = localStorage.dosesPerDay;
-                data.split(",");
-                if(persNr== data[0] && days == data[1] && dosesDay == data[2]){
-                    window.location.href = "Board.html"
-                }
-                else if(persNr==null && days == null && dosesDay ==null){
-                    localStorage.persNr =data[0];
-                    localStorage.totalDays=data[1];
-                    localStorage.dosesPerDay=data[2];
-                    //go to level select
-                }
-                else{
-                    alert("SOMETHING WENT WRONG")
-                }
-            }
-            function nextWindow(){
-                if(localStorage.persNr != null){
-                    
-                }
-            }
 
             function decode(data){
-                alert("deodding begining: " + localStorage.dosesTaken);
 
                 var dataS=data.split(",");
-                
-                if(localStorage.persNr == data[0] && localStorage.totalDays == data[1] && localStorage.dosesPerDay == data[2]){
-                    alert("decoder -> board");
-
+               
+                if(localStorage.persNr == dataS[0] && localStorage.totalDays == dataS[1] && localStorage.dosesPerDay == dataS[2]){
                     window.location.href = "Board.html";
                 }
                 else if(localStorage.dosesTaken==0){
-                    alert("decoder -> timeInput");
 
                     localStorage.setItem("dosesTaken","1");
-                    localStorage.persNr =data[0];
-                    localStorage.totalDays=data[1];
-                    localStorage.dosesPerDay=data[2];
+                    localStorage.persNr =dataS[0];
+                    localStorage.totalDays=dataS[1];
+                    localStorage.dosesPerDay=dataS[2];
 
                     window.location.href ="timeInput.html";
                 }

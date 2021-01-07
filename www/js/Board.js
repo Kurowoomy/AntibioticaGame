@@ -488,7 +488,7 @@ function handleStart(evt) {
 
         //alert(touchDistance);
 
-        if ((touchDistance > (lastTouch))  && ((touchDistance - beginningOfTouch) > 10)) {
+        if (touchDistance > lastTouch) {
             //alert("touchDistance > lastTouch");
             if (totalBoardSizeX < 50) {
                         totalBoardSizeX += 0.5;
@@ -496,7 +496,7 @@ function handleStart(evt) {
             }
         }
 
-        if ((touchDistance < (lastTouch)) && ((beginningOfTouch - touchDistance) > 10)) {
+        if (touchDistance < lastTouch) {
             //alert("touchDistance < lastTouch");
             if (totalBoardSizeX > 10) {
                         totalBoardSizeX -= 0.5;
@@ -538,20 +538,10 @@ function handleStart(evt) {
         console.log("can't figure out which touch to continue");
       }
     }
-  
-
     drawBoard();
     drawTaken();
     //alert("SetFinishPoint");
     setFinishPoint();
-
-    // ctx.fillStyle = "#f5f402"; 
-    // ctx.beginPath();
-    // //ctx.arc(((totalBoardSizeX / 2) + (totalBoardSizeX * finishPosX) + 20), ((totalBoardSizeY / 2) + (totalBoardSizeY * finishPosY) + 20), 5, 0, 2 * Math.PI);
-    // ctx.fillText("TEST",20,450);
-    // ctx.closePath();
-    // ctx.fill();
-    // ctx.stroke();
 
     lastTouchDistance = touchDistance;
     lastTouch = touchDistance;
@@ -750,8 +740,6 @@ function elpasedTime(){
     ctx.font = "15px Arial";
     ctx.fillText(mm + ":" + ss, 20, 520);
 
-    
-
 }
 
 function moveVirusRandom(){
@@ -794,28 +782,21 @@ function setFinishPoint() {
 }
 
 function setVirusStartPoint() {
-    var templevel = 0;
-
-    if (level > 8)
-        templevel = 8;
-    else
-        templevel = level;
-
     if (randomCell == 0) {
-        currentPos[0] = templevel;
-        currentPos[1] = templevel;
+        currentPos[0] = level;
+        currentPos[1] = level;
     }
     else if (randomCell == 1) {
-        currentPos[0] = templevel;
-        currentPos[1] = boardSizeY - templevel - 1;
+        currentPos[0] = level;
+        currentPos[1] = boardSizeY - level - 1;
     }
     else if (randomCell == 2) {
-        currentPos[0] = boardSizeX - templevel - 1;
-        currentPos[1] = boardSizeY - templevel - 1;
+        currentPos[0] = boardSizeX - level - 1;
+        currentPos[1] = boardSizeY - level - 1;
     }
     else if (randomCell == 3) {
-        currentPos[0] = boardSizeX - templevel - 1;
-        currentPos[1] = templevel;
+        currentPos[0] = boardSizeX - level - 1;
+        currentPos[1] = level;
     }
 
     ctx.fillStyle = "#110011"; 
@@ -902,7 +883,6 @@ function drawBoard() {
         ctx.lineTo(20 + totalBoardSizeX * bWidth,20 +  totalBoardSizeY * j);
     }
     //ctx.fill();
-    //ctx.fillText("TEST",20,450);
     ctx.lineWidth = 1;
     ctx.strokeStyle = "Black";
     ctx.stroke();
@@ -1003,7 +983,6 @@ function moveVirus() {
     }
     if (numTaken == 0) {
         alert("Game over!");
-        location.href = "levelSelection.html";
     }
     //alert("X: " + currentPos[0] + " Y: " + currentPos[1]);
 
@@ -1134,12 +1113,6 @@ function moveVirus() {
 
     if (currentPos[0] == finishPosX && currentPos[1] == finishPosY) {
         alert("You win!");
-        //localStorage.getItem("currentLevelIndex")
-        if (level < 31) {
-            level += 1;
-        }
-        localStorage.setItem("currentLevelIndex", level);
-        location.href = "levelSelection.html";
     }
 }
 

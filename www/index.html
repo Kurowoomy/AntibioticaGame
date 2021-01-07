@@ -55,17 +55,21 @@
         window.localStorage.removeItem("persNr");
         window.localStorage.removeItem("totalDays");
         window.localStorage.removeItem("dosesPerDay");
-        window.localStorage.removeItem("dosestaken");
+        window.localStorage.removeItem("dosesTaken");
 
         IntroSequence();
     }
     function IntroSequence(){
+
       try{
-        if(localStorage.dosesTaken!=0){
+        if(localStorage.dosesTaken!=undefined){
+          alert("try");
           location.href = "levelSelection.html";
           }
+          else{location.href = "introSequence.html";}
       }
       catch{
+        alert("catch")
         location.href = "introSequence.html";
       }
     }
